@@ -4,6 +4,7 @@ package com.technology.hisabKitab.fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,23 +42,32 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mHolder = new ViewHolder(view);
-      //  mHolder.button.setOnClickListener(this);
+        mHolder.cardView_add_person.setOnClickListener(this);
 //        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
 //        toolbar.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
-        ActivityUtils.startActivity(getActivity(), FrameActivity.class,HomeFragment.class.getName(),null);
+
+        switch (view.getId())
+        {
+            case R.id.cardview_add_person:
+                ActivityUtils.startActivity(getActivity(), FrameActivity.class,AddPersonFragment.class.getName(),null);
+
+
+        }
+
 
     }
 
     public static class ViewHolder {
-
+        CardView cardView_add_person;
 
         Button button;
         public ViewHolder(View view) {
   //          button = (Button) view.findViewById(R.id.button);
+            cardView_add_person = (CardView) view.findViewById(R.id.cardview_add_person);
 
         }
 

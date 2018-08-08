@@ -82,7 +82,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/image_add_person"
-                android:text="Add Entry"/>
+                android:text="Add Person"/>
 
         </android.support.constraint.ConstraintLayout>
 
@@ -92,7 +92,7 @@
     <android.support.v7.widget.CardView
         android:layout_width="150dp"
         android:layout_height="150dp"
-        app:cardBackgroundColor="@color/colorAppBG"
+        app:cardBackgroundColor="@color/colorBranchText"
         android:id="@+id/cardview_histroy"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/cardview_comming_soon"
@@ -123,7 +123,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/image_history"
-                android:text="Add Entry"/>
+                android:text="History"/>
 
         </android.support.constraint.ConstraintLayout>
 
@@ -164,7 +164,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/image_comming_soon"
-                android:text="Add Entry"/>
+                android:text="Coming Soon"/>
 
         </android.support.constraint.ConstraintLayout>
 

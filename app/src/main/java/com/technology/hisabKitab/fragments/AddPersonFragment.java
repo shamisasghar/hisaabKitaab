@@ -1,0 +1,95 @@
+package com.technology.hisabKitab.fragments;
+
+import android.app.Dialog;
+import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.technology.hisabKitab.Model.User;
+import com.technology.hisabKitab.R;
+import com.technology.hisabKitab.toolbox.ToolbarListener;
+
+public class AddPersonFragment extends Fragment implements View.OnClickListener {
+
+    Dialog Add_person;
+    EditText dialog_fname,dialog_lname;
+    Button btn_submit;
+    String fname,lname;
+    DatabaseReference databaseReference;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+//        if (!EventBus.getDefault().isRegistered(this))
+//            EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof ToolbarListener) {
+            ((ToolbarListener) context).setTitle("Add Person");
+        }
+    }
+
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        databaseReference= FirebaseDatabase.getInstance().getReference().child("Person");
+
+        showDialog();
+
+        return inflater.inflate(R.layout.fragment_add_person, container, false);
+    }
+
+
+    @Override
+    public void onClick(View view) {
+
+    }
+
+
+    public void showDialog() {
+        Add_person = new Dialog(getContext());
+        Add_person.setContentView(R.layout.dialog_add_person);
+        dialog_fname=(EditText)Add_person.findViewById(R.id.edittext_fname);
+        dialog_lname=(EditText)Add_person.findViewById(R.id.edittext_lname);
+        btn_submit=(Button)Add_person.findViewById(R.id.button_submit);
+        btn_submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SaveData();
+                getActivity().finish();
+
+            }
+        });
+
+
+
+        Add_person.setCanceledOnTouchOutside(false);
+        Add_person.show();
+        Add_person.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        Add_person.setCancelable(false);
+
+
+    }
+    public void SaveData()
+    {
+        fname=dialog_fname.getText().toString().trim();
+        lname=dialog_lname.getText().toString().trim();
+
+        User user=new User(fname,lname);
+        databaseReference.push().setValue(user);
+        Toast.makeText(getContext(), "data added", Toast.LENGTH_SHORT).show();
+
+    }
+}

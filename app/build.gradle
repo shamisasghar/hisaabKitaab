@@ -23,6 +23,7 @@ def supportLib = '26.1.0'
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "com.android.support:appcompat-v7:$supportLib"
+    implementation 'com.google.firebase:firebase-database:11.8.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.1', {
         exclude group: 'com.android.support', module: 'support-annotations'
@@ -34,3 +35,5 @@ dependencies {
     compile "com.android.support:support-v4:$supportLib"
     compile "com.android.support:design:$supportLib"
 }
+
+apply plugin: 'com.google.gms.google-services'

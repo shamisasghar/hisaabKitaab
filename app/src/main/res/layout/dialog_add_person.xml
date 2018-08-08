@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="300dp"
+    android:layout_height="250dp"
+    android:layout_gravity="center"
+    android:layout_margin="30dp"
+    android:layout_marginBottom="40dp"
+    android:layout_marginEnd="10dp"
+    android:layout_marginStart="10dp"
+    android:layout_marginTop="40dp"
+    android:background="@color/colorAppBG"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/lbl_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/spacing_extra_extra_large"
+            android:layout_marginTop="@dimen/spacing_large"
+            android:text="ADD PERSON"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/app_title" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:orientation="vertical"
+            android:background="@drawable/border_black"
+            android:visibility="visible">
+
+            <EditText
+                android:id="@+id/edittext_fname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:hint="First Name"
+                android:maxLength="10"
+                android:textColor="@color/colorPrimary"
+                android:textColorHint="@color/colorPrimaryDark" />
+            <EditText
+                android:id="@+id/edittext_lname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:hint="Last Name"
+                android:maxLength="10"
+                android:textColor="@color/colorPrimary"
+                android:textColorHint="@color/colorPrimaryDark" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/spacing_extra_large"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/button_submit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/spacing_medium"
+                android:text="Submit" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>
