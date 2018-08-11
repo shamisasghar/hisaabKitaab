@@ -139,4 +139,28 @@
     <string name="error_204">No Content Found</string>
     <string name="msg_order_expired">Order Expired</string>
     <string name="feedback_thanking_note">Thankyou for your feedback</string>
+<string-array name="months_array">
+
+    <item>
+        January
+    </item>
+    <item>
+        February
+    </item>
+    <item>
+        March
+    </item>
+    <item>
+        July
+    </item>
+    <item>
+        October
+    </item>
+    <item>
+        November
+    </item>
+
+</string-array>
+
+
 </resources>

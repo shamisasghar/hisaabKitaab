@@ -12,6 +12,7 @@ import android.widget.Button;
 
 import com.technology.hisabKitab.FrameActivity;
 import com.technology.hisabKitab.R;
+import com.technology.hisabKitab.SimpleFrameActivity;
 import com.technology.hisabKitab.toolbox.ToolbarListener;
 import com.technology.hisabKitab.utils.ActivityUtils;
 
@@ -43,6 +44,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         super.onViewCreated(view, savedInstanceState);
         mHolder = new ViewHolder(view);
         mHolder.cardView_add_person.setOnClickListener(this);
+        mHolder.cardView_update_delete.setOnClickListener(this);
 //        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
 //        toolbar.setOnClickListener(this);
     }
@@ -54,20 +56,23 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         {
             case R.id.cardview_add_person:
                 ActivityUtils.startActivity(getActivity(), FrameActivity.class,AddPersonFragment.class.getName(),null);
-
-
+                break;
+            case R.id.cardview_update:
+                ActivityUtils.startActivity(getActivity(), SimpleFrameActivity.class,Update_DeleteFragment.class.getName(),null);
+                break;
         }
 
 
     }
 
     public static class ViewHolder {
-        CardView cardView_add_person;
+        CardView cardView_add_person,cardView_update_delete;
 
         Button button;
         public ViewHolder(View view) {
   //          button = (Button) view.findViewById(R.id.button);
             cardView_add_person = (CardView) view.findViewById(R.id.cardview_add_person);
+            cardView_update_delete = (CardView) view.findViewById(R.id.cardview_update);
 
         }
 

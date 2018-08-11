@@ -18,8 +18,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.NotificationCompat;
+
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;

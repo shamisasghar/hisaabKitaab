@@ -22,9 +22,9 @@ import com.technology.hisabKitab.toolbox.ToolbarListener;
 public class AddPersonFragment extends Fragment implements View.OnClickListener {
 
     Dialog Add_person;
-    EditText dialog_fname,dialog_lname;
+    EditText dialog_fname, dialog_lname;
     Button btn_submit;
-    String fname,lname;
+    String fname, lname;
     DatabaseReference databaseReference;
 
     @Override
@@ -44,7 +44,7 @@ public class AddPersonFragment extends Fragment implements View.OnClickListener 
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        databaseReference= FirebaseDatabase.getInstance().getReference().child("Person");
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("Person");
 
         showDialog();
 
@@ -61,18 +61,17 @@ public class AddPersonFragment extends Fragment implements View.OnClickListener 
     public void showDialog() {
         Add_person = new Dialog(getContext());
         Add_person.setContentView(R.layout.dialog_add_person);
-        dialog_fname=(EditText)Add_person.findViewById(R.id.edittext_fname);
-        dialog_lname=(EditText)Add_person.findViewById(R.id.edittext_lname);
-        btn_submit=(Button)Add_person.findViewById(R.id.button_submit);
+        dialog_fname = (EditText) Add_person.findViewById(R.id.edittext_fname);
+        dialog_lname = (EditText) Add_person.findViewById(R.id.edittext_lname);
+        btn_submit = (Button) Add_person.findViewById(R.id.button_submit);
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 SaveData();
-                getActivity().finish();
+
 
             }
         });
-
 
 
         Add_person.setCanceledOnTouchOutside(false);
@@ -82,14 +81,26 @@ public class AddPersonFragment extends Fragment implements View.OnClickListener 
 
 
     }
-    public void SaveData()
-    {
-        fname=dialog_fname.getText().toString().trim();
-        lname=dialog_lname.getText().toString().trim();
 
-        User user=new User(fname,lname);
-        databaseReference.push().setValue(user);
-        Toast.makeText(getContext(), "data added", Toast.LENGTH_SHORT).show();
+    public void SaveData() {
+        fname = dialog_fname.getText().toString().trim();
+        lname = dialog_lname.getText().toString().trim();
+        if(fname==" ")
+        {
+            Toast.makeText(getContext(), "enter fname ", Toast.LENGTH_SHORT).show();
+        }
+        else if(lname==" ")
+        {
+            Toast.makeText(getContext(), "enter fname ", Toast.LENGTH_SHORT).show();
+
+        }
+        else {
+
+            User user = new User(fname,lname);
+            databaseReference.push().setValue(user);
+            Toast.makeText(getContext(), "data added", Toast.LENGTH_SHORT).show();
+            getActivity().finish();
+        }
 
     }
 }

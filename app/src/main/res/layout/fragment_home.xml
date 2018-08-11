@@ -53,7 +53,7 @@
         android:layout_width="150dp"
         android:layout_height="150dp"
         app:cardBackgroundColor="@color/colorPrimaryDark"
-        app:layout_constraintBottom_toTopOf="@+id/cardview_comming_soon"
+        app:layout_constraintBottom_toTopOf="@+id/cardview_update"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/carview_add_entry"
         app:layout_constraintTop_toTopOf="parent">
@@ -95,7 +95,7 @@
         app:cardBackgroundColor="@color/colorBranchText"
         android:id="@+id/cardview_histroy"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/cardview_comming_soon"
+        app:layout_constraintRight_toLeftOf="@+id/cardview_update"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/carview_add_entry">
 
@@ -131,40 +131,42 @@
     </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.CardView
-        android:id="@+id/cardview_comming_soon"
+        android:id="@+id/cardview_update"
         android:layout_width="150dp"
-        app:cardBackgroundColor="@color/cardview_dark_background"
         android:layout_height="150dp"
+        app:cardBackgroundColor="@color/cardview_dark_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/carview_add_entry"
-        app:layout_constraintStart_toEndOf="@+id/cardview_histroy">
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/cardview_histroy"
+        app:layout_constraintTop_toBottomOf="@+id/carview_add_entry">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <ImageView
+                android:id="@+id/image_comming_soon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/image_comming_soon"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                android:src="@mipmap/ic_launcher_foreground"
                 app:layout_constraintBottom_toTopOf="@+id/txt_comming_soon"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:src="@mipmap/ic_launcher_foreground">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
             </ImageView>
 
             <TextView
+                android:id="@+id/txt_comming_soon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="Update/Delete"
                 android:textColor="#ffffff"
-                android:id="@+id/txt_comming_soon"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/image_comming_soon"
-                android:text="Coming Soon"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/image_comming_soon" />
 
         </android.support.constraint.ConstraintLayout>
 
