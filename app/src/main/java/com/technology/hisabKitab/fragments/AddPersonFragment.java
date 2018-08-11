@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -85,19 +86,20 @@ public class AddPersonFragment extends Fragment implements View.OnClickListener 
     public void SaveData() {
         fname = dialog_fname.getText().toString().trim();
         lname = dialog_lname.getText().toString().trim();
-        if(fname==" ")
+        if(TextUtils.isEmpty(fname))
         {
-            Toast.makeText(getContext(), "enter fname ", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "enter first name ", Toast.LENGTH_SHORT).show();
         }
-        else if(lname==" ")
+        else if(TextUtils.isEmpty(lname))
         {
-            Toast.makeText(getContext(), "enter fname ", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "enter last name ", Toast.LENGTH_SHORT).show();
 
         }
         else {
+            String id=databaseReference.push().getKey();
 
-            User user = new User(fname,lname);
-            databaseReference.push().setValue(user);
+            User user = new User(id,fname,lname);
+            databaseReference.child(id).setValue(user);
             Toast.makeText(getContext(), "data added", Toast.LENGTH_SHORT).show();
             getActivity().finish();
         }

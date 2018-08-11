@@ -5,7 +5,18 @@ public class User {
     private String fname;
     private String lname;
 
-    public User(String fname, String lname) {
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    private String id;
+
+    public User(String id,String fname, String lname) {
+        this.id=id;
         this.fname = fname;
         this.lname = lname;
     }

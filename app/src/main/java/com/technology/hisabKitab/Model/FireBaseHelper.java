@@ -10,25 +10,22 @@ import java.util.ArrayList;
 public class FireBaseHelper {
     DatabaseReference db;
     Boolean saved;
-    ArrayList<User> spacecrafts=new ArrayList<>();
+    ArrayList<User> users = new ArrayList<>();
 
     public FireBaseHelper(DatabaseReference db) {
         this.db = db;
     }
 
-    private void fetchData(DataSnapshot dataSnapshot)
-    {
-        spacecrafts.clear();
+    private void fetchData(DataSnapshot dataSnapshot) {
+        users.clear();
 
-        for (DataSnapshot ds : dataSnapshot.getChildren())
-        {
-            User spacecraft=ds.getValue(User.class);
-            spacecrafts.add(spacecraft);
+        for (DataSnapshot ds : dataSnapshot.getChildren()) {
+            User spacecraft = ds.getValue(User.class);
+            users.add(spacecraft);
         }
     }
 
-    public ArrayList<User> retrieve()
-    {
+    public ArrayList<User> retrieve() {
         db.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -57,7 +54,7 @@ public class FireBaseHelper {
             }
         });
 
-        return spacecrafts;
+        return users;
     }
 
 }
