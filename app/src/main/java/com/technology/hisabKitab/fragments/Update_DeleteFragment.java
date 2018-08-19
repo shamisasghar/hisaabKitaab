@@ -23,7 +23,7 @@ import android.widget.Toolbar;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.technology.hisabKitab.Adapter.CustomAdapter;
-import com.technology.hisabKitab.Model.FireBaseHelper;
+import com.technology.hisabKitab.fragments.FireBaseHelper;
 import com.technology.hisabKitab.R;
 
 import java.util.ArrayList;

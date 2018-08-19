@@ -10,11 +10,13 @@
         android:id="@+id/editTextFname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:imeOptions="actionNext"
         android:hint="Enter Fname" />
 
     <EditText
         android:id="@+id/editTextLname"
         android:layout_width="match_parent"
+        android:imeOptions="actionDone"
         android:layout_height="wrap_content"
         android:hint="Enter Lname" />
 

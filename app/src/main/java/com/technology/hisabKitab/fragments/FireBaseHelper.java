@@ -1,9 +1,11 @@
-package com.technology.hisabKitab.Model;
+package com.technology.hisabKitab.fragments;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.technology.hisabKitab.Model.User;
+
 
 import java.util.ArrayList;
 
@@ -17,7 +19,7 @@ public class FireBaseHelper {
     }
 
     private void fetchData(DataSnapshot dataSnapshot) {
-        users.clear();
+//        users.clear();
 
         for (DataSnapshot ds : dataSnapshot.getChildren()) {
             User spacecraft = ds.getValue(User.class);

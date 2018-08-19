@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,21 +21,23 @@ import java.util.ArrayList;
 
 public class CustomAdapter extends BaseAdapter {
     Context c;
-    ArrayList<User> spacecrafts;
+    ArrayList<User> users;
+
 
     public CustomAdapter(Context c, ArrayList<User> spacecrafts) {
         this.c = c;
-        this.spacecrafts = spacecrafts;
+        this.users = spacecrafts;
     }
 
     @Override
     public int getCount() {
-        return spacecrafts.size();
+
+        return users.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return spacecrafts.get(position);
+        return users.get(position);
     }
 
     @Override
@@ -65,7 +66,7 @@ public class CustomAdapter extends BaseAdapter {
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(c, s.getId(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(c, s.getId(), Toast.LENGTH_SHORT).show();
                 showdialog(s.getId(),s.getFname(),s.getLname());
 
             }

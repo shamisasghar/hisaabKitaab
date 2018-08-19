@@ -45,6 +45,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         mHolder = new ViewHolder(view);
         mHolder.cardView_add_person.setOnClickListener(this);
         mHolder.cardView_update_delete.setOnClickListener(this);
+        mHolder.cardView_add_entery.setOnClickListener(this);
 //        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
 //        toolbar.setOnClickListener(this);
     }
@@ -60,19 +61,22 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
             case R.id.cardview_update:
                 ActivityUtils.startActivity(getActivity(), SimpleFrameActivity.class,Update_DeleteFragment.class.getName(),null);
                 break;
+            case R.id.cardview_add_entry:
+                ActivityUtils.startActivity(getActivity(), FrameActivity.class,AddEntryFragment.class.getName(),null);
+                break;
         }
 
 
     }
 
     public static class ViewHolder {
-        CardView cardView_add_person,cardView_update_delete;
+        CardView cardView_add_person,cardView_update_delete,cardView_add_entery;
 
-        Button button;
+
         public ViewHolder(View view) {
-  //          button = (Button) view.findViewById(R.id.button);
             cardView_add_person = (CardView) view.findViewById(R.id.cardview_add_person);
             cardView_update_delete = (CardView) view.findViewById(R.id.cardview_update);
+            cardView_add_entery = (CardView) view.findViewById(R.id.cardview_add_entry);
 
         }
 
