@@ -4,6 +4,7 @@ import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 import com.technology.hisabKitab.Model.User;
 
 
@@ -19,35 +20,41 @@ public class FireBaseHelper {
     }
 
     private void fetchData(DataSnapshot dataSnapshot) {
-//        users.clear();
-
+         users.clear();
         for (DataSnapshot ds : dataSnapshot.getChildren()) {
-            User spacecraft = ds.getValue(User.class);
-            users.add(spacecraft);
+            User user = ds.getValue(User.class);
+            users.add(user);
         }
     }
 
     public ArrayList<User> retrieve() {
-        db.addChildEventListener(new ChildEventListener() {
+
+
+        db.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+//
+//            }
+//
+//            @Override
+//            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+//                fetchData(dataSnapshot);
+//
+//            }
+//
+//            @Override
+//            public void onChildRemoved(DataSnapshot dataSnapshot) {
+//
+//            }
+//
+//            @Override
+//            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+//
+//            }
+
             @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+            public void onDataChange(DataSnapshot dataSnapshot) {
                 fetchData(dataSnapshot);
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                fetchData(dataSnapshot);
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
             }
 
             @Override

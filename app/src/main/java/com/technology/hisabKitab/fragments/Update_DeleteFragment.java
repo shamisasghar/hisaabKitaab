@@ -79,7 +79,7 @@ public class Update_DeleteFragment extends Fragment implements View.OnClickListe
         mListView = (ListView) view.findViewById(R.id.list);
         mEmptyView = (TextView) view.findViewById(R.id.txt_empty);
 
-        db = FirebaseDatabase.getInstance().getReference();
+        db = FirebaseDatabase.getInstance().getReference().child("Person");
         helper = new FireBaseHelper(db);
         adapter = new CustomAdapter(getContext(), helper.retrieve());
         mListView.setAdapter(adapter);

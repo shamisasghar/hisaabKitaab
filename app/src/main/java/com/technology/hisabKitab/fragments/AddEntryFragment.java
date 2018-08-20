@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,8 +42,8 @@ public class AddEntryFragment extends Fragment implements View.OnClickListener {
     String spinner_item;
     private ViewHolder mHolder;
     boolean[] checkedItems;
-    List<String> listItems;
     List<String> areas;
+    DatabaseReference databaseReference;
     ArrayList<Integer> mUserItems = new ArrayList<>();
     String[] aary;
     String selected_person = "";
@@ -91,17 +92,15 @@ public class AddEntryFragment extends Fragment implements View.OnClickListener {
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // databaseReference = FirebaseDatabase.getInstance().getReference().child("Entery Table");
+
         view = inflater.inflate(R.layout.fragment_add_entery, container, false);
         spinner = (Spinner) view.findViewById(R.id.Spinner);
         users = new ArrayList<>();
         date_time = (TextView) view.findViewById(R.id.txt_date_time);
-        db = FirebaseDatabase.getInstance().getReference();
+        db = FirebaseDatabase.getInstance().getReference().child("Person");
         helper = new FireBaseHelper(db);
         users = helper.retrieve();
 //        checkedItems = new boolean[listItems.length];
-
-
 
         getdatetime();
         getSpinnerdata();
@@ -168,10 +167,14 @@ public class AddEntryFragment extends Fragment implements View.OnClickListener {
     public static class ViewHolder {
 
         Button button_add_person, button_add_entery;
+        EditText total_amount,each_amount,remarks;
 
         public ViewHolder(View view) {
             button_add_entery = (Button) view.findViewById(R.id.btn_save_entery);
             button_add_person = (Button) view.findViewById(R.id.btn_add_person);
+            total_amount = (EditText) view.findViewById(R.id.edittext_total_amount);
+            each_amount = (EditText) view.findViewById(R.id.edittext_each_amount);
+            remarks = (EditText) view.findViewById(R.id.edittext_remarks);
 
         }
 
@@ -241,6 +244,15 @@ public class AddEntryFragment extends Fragment implements View.OnClickListener {
 
     public void Today_Entery()
     {
+        databaseReference = FirebaseDatabase.getInstance().getReference().child(current_date_time);
+
+        databaseReference.child("Total amount").setValue(mHolder.total_amount.getText().toString());
+        databaseReference.child("Each amount").setValue(mHolder.each_amount.getText().toString());
+        databaseReference.child("Payed by").setValue(spinner_item);
+        databaseReference.child("Remarks").setValue(mHolder.remarks.getText().toString());
+        databaseReference.child("Person included").setValue(selected_person);
+
+
 
 
 
