@@ -9,7 +9,7 @@
     android:layout_marginEnd="10dp"
     android:layout_marginStart="10dp"
     android:layout_marginTop="40dp"
-    android:background="@color/colorAppBG"
+    android:background="@drawable/border_blue"
     android:orientation="vertical">
 
 
@@ -36,7 +36,7 @@
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
             android:orientation="vertical"
-            android:background="@drawable/border_black"
+            android:background="@drawable/border_red"
             android:visibility="visible">
 
             <EditText
@@ -72,13 +72,14 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/spacing_extra_large"
+
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/button_submit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/spacing_medium"
+                android:layout_width="match_parent"
+                android:background="@drawable/border_white"
+                android:layout_height="match_parent"
                 android:text="Submit" />
 
 

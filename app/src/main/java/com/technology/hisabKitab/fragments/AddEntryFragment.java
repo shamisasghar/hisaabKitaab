@@ -21,6 +21,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.technology.hisabKitab.Model.AddEntery;
 import com.technology.hisabKitab.Model.User;
 import com.technology.hisabKitab.R;
 import com.technology.hisabKitab.toolbox.ToolbarListener;
@@ -47,6 +48,7 @@ public class AddEntryFragment extends Fragment implements View.OnClickListener {
     ArrayList<Integer> mUserItems = new ArrayList<>();
     String[] aary;
     String selected_person = "";
+
     @Override
     public void onClick(View view) {
 
@@ -97,6 +99,7 @@ public class AddEntryFragment extends Fragment implements View.OnClickListener {
         spinner = (Spinner) view.findViewById(R.id.Spinner);
         users = new ArrayList<>();
         date_time = (TextView) view.findViewById(R.id.txt_date_time);
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("Months");
         db = FirebaseDatabase.getInstance().getReference().child("Person");
         helper = new FireBaseHelper(db);
         users = helper.retrieve();
@@ -110,7 +113,7 @@ public class AddEntryFragment extends Fragment implements View.OnClickListener {
     }
 
     public void getdatetime() {
-        SimpleDateFormat outputFmt = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat outputFmt = new SimpleDateFormat("yyyy-MMMM-dd");
         outputFmt.setTimeZone(TimeZone.getTimeZone("gmt"));
         current_date_time = outputFmt.format(new Date());
         date_time.setText(current_date_time);
@@ -244,17 +247,12 @@ public class AddEntryFragment extends Fragment implements View.OnClickListener {
 
     public void Today_Entery()
     {
-        databaseReference = FirebaseDatabase.getInstance().getReference().child(current_date_time);
 
-        databaseReference.child("Total amount").setValue(mHolder.total_amount.getText().toString());
-        databaseReference.child("Each amount").setValue(mHolder.each_amount.getText().toString());
-        databaseReference.child("Payed by").setValue(spinner_item);
-        databaseReference.child("Remarks").setValue(mHolder.remarks.getText().toString());
-        databaseReference.child("Person included").setValue(selected_person);
+        AddEntery addEntery=new AddEntery(spinner_item,mHolder.total_amount.getText().toString(),
+                mHolder.each_amount.getText().toString(),mHolder.remarks.getText().toString(),
+                selected_person,current_date_time);
 
-
-
-
+        databaseReference.child(current_date_time).setValue(addEntery);
 
     }
 

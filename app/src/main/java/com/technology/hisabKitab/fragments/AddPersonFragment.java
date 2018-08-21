@@ -78,7 +78,7 @@ public class AddPersonFragment extends Fragment implements View.OnClickListener 
         Add_person.setCanceledOnTouchOutside(true);
         Add_person.show();
         Add_person.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        Add_person.setCancelable(false);
+        Add_person.setCancelable(true);
 
     }
 

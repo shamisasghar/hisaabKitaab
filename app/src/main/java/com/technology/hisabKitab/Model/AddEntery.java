@@ -3,9 +3,9 @@ package com.technology.hisabKitab.Model;
 public class AddEntery  {
 
    private String payed_person_name;
-    private String date_time;
-    private int total_amount;
-    private int each_amount;
+    private String date;
+    private String total_amount;
+    private String each_amount;
     private String remarks;
     private String selected_person;
 
@@ -17,27 +17,27 @@ public class AddEntery  {
         this.payed_person_name = payed_person_name;
     }
 
-    public String getDate_time() {
-        return date_time;
+    public String getDate() {
+        return date;
     }
 
-    public void setDate_time(String date_time) {
-        this.date_time = date_time;
+    public void setDate(String date) {
+        this.date = date;
     }
 
-    public int getTotal_amount() {
+    public String getTotal_amount() {
         return total_amount;
     }
 
-    public void setTotal_amount(int total_amount) {
+    public void setTotal_amount(String total_amount) {
         this.total_amount = total_amount;
     }
 
-    public int getEach_amount() {
+    public String getEach_amount() {
         return each_amount;
     }
 
-    public void setEach_amount(int each_amount) {
+    public void setEach_amount(String each_amount) {
         this.each_amount = each_amount;
     }
 
@@ -58,13 +58,18 @@ public class AddEntery  {
     }
 
 
-    public AddEntery(String payed_person_name, String date_time, int total_amount, int each_amount, String remarks, String selected_person) {
+    public AddEntery(String payed_person_name, String total_amount, String each_amount, String remarks, String selected_person,String date) {
         this.payed_person_name = payed_person_name;
-        this.date_time = date_time;
         this.total_amount = total_amount;
+        this.date = date;
         this.each_amount = each_amount;
         this.remarks = remarks;
         this.selected_person = selected_person;
+    }
+
+    public AddEntery()
+    {
+
     }
 
 
