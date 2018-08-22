@@ -34,7 +34,7 @@ public class TabFragment extends Fragment implements View.OnClickListener, Toolb
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof ToolbarListener) {
-            ((ToolbarListener) context).setTitle("PERSON INFO");
+            ((ToolbarListener) context).setTitle("Person Info");
         }
         mContext=context;
     }

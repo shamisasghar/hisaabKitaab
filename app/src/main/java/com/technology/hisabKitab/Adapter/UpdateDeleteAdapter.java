@@ -2,11 +2,11 @@ package com.technology.hisabKitab.Adapter;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -16,64 +16,61 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.technology.hisabKitab.Model.User;
 import com.technology.hisabKitab.R;
+import com.technology.hisabKitab.fragments.Update_DeleteFragment;
 
 import java.util.ArrayList;
 
-public class CustomAdapter extends BaseAdapter {
+public class UpdateDeleteAdapter extends RecyclerView.Adapter<UpdateDeleteAdapter.MyViewHolder> {
     Context c;
     ArrayList<User> users;
 
-
-    public CustomAdapter(Context c, ArrayList<User> spacecrafts) {
+    public UpdateDeleteAdapter(Context c, ArrayList<User> spacecrafts) {
         this.c = c;
         this.users = spacecrafts;
     }
 
-    @Override
-    public int getCount() {
 
-        return users.size();
+    @Override
+    public UpdateDeleteAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_custom_adapter, parent, false);
+        return new UpdateDeleteAdapter.MyViewHolder(view);
     }
 
     @Override
-    public Object getItem(int position) {
-        return users.get(position);
-    }
+    public void onBindViewHolder(final UpdateDeleteAdapter.MyViewHolder holder, final int position) {
+        holder.nameTxt.setText(users.get(position).getFname());
+        holder.propTxt.setText(users.get(position).getLname());
 
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        if (convertView == null) {
-            convertView = LayoutInflater.from(c).inflate(R.layout.item_custom_adapter, parent, false);
-        }
-
-        TextView nameTxt = (TextView) convertView.findViewById(R.id.fname);
-        TextView propTxt = (TextView) convertView.findViewById(R.id.lname);
-
-
-        final User s = (User) this.getItem(position);
-
-
-        nameTxt.setText(s.getFname());
-        propTxt.setText(s.getLname());
-
-
-        //ONITECLICK
-        convertView.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-//                Toast.makeText(c, s.getId(), Toast.LENGTH_SHORT).show();
-                showdialog(s.getId(),s.getFname(),s.getLname());
+            public void onClick(View view) {
+                showdialog(users.get(position).getId(),users.get(position).getFname(),users.get(position).getLname());
 
             }
         });
-        return convertView;
+
+
     }
 
+    @Override
+    public int getItemCount() {
+        return users.size();
+    }
+
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+
+        TextView nameTxt ;
+        TextView propTxt ;
+
+        public MyViewHolder(View itemView) {
+
+            super(itemView);
+
+            nameTxt = (TextView) itemView.findViewById(R.id.fname);
+            propTxt = (TextView) itemView.findViewById(R.id.lname);
+
+        }
+    }
     private void showdialog(final String id, String fname, String lname)
     {
         AlertDialog.Builder builder=new AlertDialog.Builder(c);
@@ -138,5 +135,6 @@ public class CustomAdapter extends BaseAdapter {
         Toast.makeText(c, "User Updated", Toast.LENGTH_LONG).show();
         return true;
     }
+
 
 }

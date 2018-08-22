@@ -60,7 +60,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                 ActivityUtils.startActivity(getActivity(), FrameActivity.class,TabFragment.class.getName(),null);
                 break;
             case R.id.cardview_update:
-                ActivityUtils.startActivity(getActivity(), SimpleFrameActivity.class,Update_DeleteFragment.class.getName(),null);
+                ActivityUtils.startActivity(getActivity(), FrameActivity.class,Update_DeleteFragment.class.getName(),null);
                 break;
             case R.id.cardview_add_entry:
                 ActivityUtils.startActivity(getActivity(), FrameActivity.class,AddEntryFragment.class.getName(),null);

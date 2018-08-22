@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.technology.hisabKitab.Adapter.CustomAdapter;
 import com.technology.hisabKitab.Adapter.HistoryAdapter;
 import com.technology.hisabKitab.R;
 import com.technology.hisabKitab.utils.AppUtils;

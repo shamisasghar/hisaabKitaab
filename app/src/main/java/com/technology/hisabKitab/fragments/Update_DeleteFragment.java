@@ -1,44 +1,33 @@
 package com.technology.hisabKitab.fragments;
 
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.Toolbar;
 
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.technology.hisabKitab.Adapter.CustomAdapter;
-import com.technology.hisabKitab.fragments.FireBaseHelper;
+import com.technology.hisabKitab.Adapter.UpdateDeleteAdapter;
 import com.technology.hisabKitab.R;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.zip.Inflater;
 
 public class Update_DeleteFragment extends Fragment implements View.OnClickListener {
 
     private ViewHolder mHolder;
-
-    ListView mListView;
+    private RecyclerView recyclerView;
+    private RecyclerView.LayoutManager layoutManager;
     TextView mEmptyView;
     DatabaseReference db;
     FireBaseHelper helper;
-    CustomAdapter adapter;
+    UpdateDeleteAdapter updateDeleteAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -76,13 +65,17 @@ public class Update_DeleteFragment extends Fragment implements View.OnClickListe
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_update_delete, container, false);
-        mListView = (ListView) view.findViewById(R.id.list);
+        recyclerView=(RecyclerView)view.findViewById(R.id.recycler_update_delete);
       //  mEmptyView = (TextView) view.findViewById(R.id.txt_empty);
+        layoutManager=new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setHasFixedSize(true);
 
         db = FirebaseDatabase.getInstance().getReference().child("Person");
         helper = new FireBaseHelper(db);
-        adapter = new CustomAdapter(getContext(), helper.retrieve());
-        mListView.setAdapter(adapter);
+        updateDeleteAdapter = new UpdateDeleteAdapter(getContext(), helper.retrieve());
+        recyclerView.setAdapter(updateDeleteAdapter);
+
 
         return view;
     }
