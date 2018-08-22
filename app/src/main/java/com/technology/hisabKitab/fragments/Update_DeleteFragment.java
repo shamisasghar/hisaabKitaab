@@ -77,7 +77,7 @@ public class Update_DeleteFragment extends Fragment implements View.OnClickListe
 
         View view = inflater.inflate(R.layout.fragment_update_delete, container, false);
         mListView = (ListView) view.findViewById(R.id.list);
-        mEmptyView = (TextView) view.findViewById(R.id.txt_empty);
+      //  mEmptyView = (TextView) view.findViewById(R.id.txt_empty);
 
         db = FirebaseDatabase.getInstance().getReference().child("Person");
         helper = new FireBaseHelper(db);

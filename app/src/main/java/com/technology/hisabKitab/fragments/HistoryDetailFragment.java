@@ -17,6 +17,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.technology.hisabKitab.Adapter.CustomAdapter;
 import com.technology.hisabKitab.Adapter.HistoryAdapter;
 import com.technology.hisabKitab.R;
+import com.technology.hisabKitab.utils.AppUtils;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 public class HistoryDetailFragment extends Fragment implements View.OnClickListener{
     private Update_DeleteFragment.ViewHolder mHolder;
@@ -26,6 +30,8 @@ public class HistoryDetailFragment extends Fragment implements View.OnClickListe
     DatabaseReference db;
     Firebase helper;
     HistoryAdapter adapter;
+    Calendar calendar;
+    String Current_month;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -65,8 +71,12 @@ public class HistoryDetailFragment extends Fragment implements View.OnClickListe
         View view = inflater.inflate(R.layout.fragment_history_detail, container, false);
         mListView = (ListView) view.findViewById(R.id.list);
         mEmptyView = (TextView) view.findViewById(R.id.txt_empty);
+        calendar=Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MMMM-dd");
+        Current_month= AppUtils.getFormattedDate(df.format(calendar.getTime()));
 
-        db = FirebaseDatabase.getInstance().getReference().child("Months");
+
+        db = FirebaseDatabase.getInstance().getReference().child("Months").child(Current_month);
         helper = new Firebase(db);
         adapter = new HistoryAdapter(getContext(), helper.retrieve());
         mListView.setAdapter(adapter);

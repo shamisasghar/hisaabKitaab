@@ -90,14 +90,14 @@ public class AppUtils {
 
     public static String getFormattedDate(String date) {
         if (date != null) {
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MMMM-dd");
             try {
                 Date serverDate = simpleDateFormat.parse(date);
                 Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
                 calendar.setTime(serverDate);
                 calendar.add(Calendar.MILLISECOND,
                         TimeZone.getDefault().getRawOffset() + TimeZone.getDefault().getDSTSavings());
-                SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM dd, yyyy");
+                SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM, yyyy");
                 return dateFormat.format(serverDate);
             } catch (Exception e) {
                 Log.e(">> Date Exception", e.getMessage());

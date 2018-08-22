@@ -25,9 +25,11 @@ import com.technology.hisabKitab.Model.AddEntery;
 import com.technology.hisabKitab.Model.User;
 import com.technology.hisabKitab.R;
 import com.technology.hisabKitab.toolbox.ToolbarListener;
+import com.technology.hisabKitab.utils.AppUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
@@ -48,6 +50,8 @@ public class AddEntryFragment extends Fragment implements View.OnClickListener {
     ArrayList<Integer> mUserItems = new ArrayList<>();
     String[] aary;
     String selected_person = "";
+    String Current_month;
+    Calendar calendar;
 
     @Override
     public void onClick(View view) {
@@ -117,6 +121,12 @@ public class AddEntryFragment extends Fragment implements View.OnClickListener {
         outputFmt.setTimeZone(TimeZone.getTimeZone("gmt"));
         current_date_time = outputFmt.format(new Date());
         date_time.setText(current_date_time);
+
+        calendar= Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MMMM-dd");
+        Current_month= AppUtils.getFormattedDate(df.format(calendar.getTime()));
+
+
 
     }
 
@@ -252,7 +262,7 @@ public class AddEntryFragment extends Fragment implements View.OnClickListener {
                 mHolder.each_amount.getText().toString(),mHolder.remarks.getText().toString(),
                 selected_person,current_date_time);
 
-        databaseReference.child(current_date_time).setValue(addEntery);
+        databaseReference.child(Current_month).child(current_date_time).setValue(addEntery);
 
     }
 

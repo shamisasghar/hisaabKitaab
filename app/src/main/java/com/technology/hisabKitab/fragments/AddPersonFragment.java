@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -21,12 +22,14 @@ import com.technology.hisabKitab.R;
 import com.technology.hisabKitab.toolbox.ToolbarListener;
 
 public class AddPersonFragment extends Fragment implements View.OnClickListener {
-
     Dialog Add_person;
     EditText dialog_fname, dialog_lname;
     Button btn_submit;
     String fname, lname;
+    View view;
     DatabaseReference databaseReference;
+    FloatingActionButton floatingActionButton;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,25 +39,40 @@ public class AddPersonFragment extends Fragment implements View.OnClickListener 
 //            EventBus.getDefault().register(this);
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof ToolbarListener) {
-            ((ToolbarListener) context).setTitle("Add Person");
-        }
-    }
+//    @Override
+//    public void onAttach(Context context) {
+//        super.onAttach(context);
+//        if (context instanceof ToolbarListener) {
+//            ((ToolbarListener) context).setTitle("Add Person");
+//        }
+//    }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Person");
 
-        showDialog();
+        view= inflater.inflate(R.layout.fragment_add_person, container, false);
+        floatingActionButton=(FloatingActionButton)view.findViewById(R.id.fab_add);
 
-        return inflater.inflate(R.layout.fragment_add_person, container, false);
+
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               showDialog();
+
+            }
+        });
+
+
+
+        return view;
     }
 
 
     @Override
-    public void onClick(View view) {
+    public void onClick(View view)
+    {
+
+
 
     }
 
@@ -104,4 +122,5 @@ public class AddPersonFragment extends Fragment implements View.OnClickListener 
         }
 
     }
+
 }
