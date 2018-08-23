@@ -27,6 +27,7 @@ public class HistoryDetailFragment extends Fragment implements View.OnClickListe
     ListView mListView;
     TextView mEmptyView;
     DatabaseReference db;
+    DatabaseReference databaseReference;
     Firebase helper;
     HistoryAdapter adapter;
     Calendar calendar;
@@ -74,11 +75,13 @@ public class HistoryDetailFragment extends Fragment implements View.OnClickListe
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MMMM-dd");
         Current_month= AppUtils.getFormattedDate(df.format(calendar.getTime()));
 
-
         db = FirebaseDatabase.getInstance().getReference().child("Months").child(Current_month);
         helper = new Firebase(db);
         adapter = new HistoryAdapter(getContext(), helper.retrieve());
         mListView.setAdapter(adapter);
+
+
+
 
         return view;
     }

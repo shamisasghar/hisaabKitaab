@@ -122,7 +122,7 @@ public class TabFragment extends Fragment implements View.OnClickListener, Toolb
     @Override
     public void onResume() {
         if (mContext instanceof ToolbarListener) {
-            ((ToolbarListener) mContext).setTitle("PERSON INFO");
+            ((ToolbarListener) mContext).setTitle("Person Info");
         }
 
         super.onResume();

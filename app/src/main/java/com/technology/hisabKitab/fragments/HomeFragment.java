@@ -47,6 +47,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         mHolder.cardView_update_delete.setOnClickListener(this);
         mHolder.cardView_add_entery.setOnClickListener(this);
         mHolder.cardView_history.setOnClickListener(this);
+        mHolder.cardView_check_cash.setOnClickListener(this);
 //        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
 //        toolbar.setOnClickListener(this);
     }
@@ -68,13 +69,20 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
             case R.id.cardview_histroy:
                 ActivityUtils.startActivity(getActivity(), SimpleFrameActivity.class,HistoryDetailFragment.class.getName(),null);
                 break;
+
+            case R.id.cardview_cash:
+                ActivityUtils.startActivity(getActivity(), FrameActivity.class,CashInfoFragment.class.getName(),null);
+                break;
         }
 
 
     }
 
     public static class ViewHolder {
-        CardView cardView_add_person,cardView_update_delete,cardView_add_entery,cardView_history;
+        CardView cardView_add_person
+                ,cardView_update_delete
+                ,cardView_add_entery
+                ,cardView_history,cardView_check_cash;
 
 
         public ViewHolder(View view) {
@@ -82,6 +90,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
             cardView_update_delete = (CardView) view.findViewById(R.id.cardview_update);
             cardView_add_entery = (CardView) view.findViewById(R.id.cardview_add_entry);
             cardView_history = (CardView) view.findViewById(R.id.cardview_histroy);
+            cardView_check_cash = (CardView) view.findViewById(R.id.cardview_cash);
 
         }
 
