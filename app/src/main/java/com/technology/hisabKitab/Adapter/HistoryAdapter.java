@@ -4,77 +4,79 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.technology.hisabKitab.Model.AddEntery;
 import com.technology.hisabKitab.R;
 
 import java.util.ArrayList;
 
-public class HistoryAdapter extends BaseAdapter {
+public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHolder> {
     Context c;
     ArrayList<AddEntery> users;
     Dialog specfic_item;
     TextView title,remarks,total_amount,each_amount,person_included,payed_by;
     Button btn_done;
-
-    public HistoryAdapter(Context c, ArrayList<AddEntery> spacecrafts) {
+    public ArrayList<AddEntery> selected_usersList=new ArrayList<>();
+    public HistoryAdapter(Context c, ArrayList<AddEntery> spacecrafts, ArrayList<AddEntery> selectedList) {
         this.c = c;
         this.users = spacecrafts;
+        this.selected_usersList = selectedList;
     }
 
     @Override
-    public int getCount() {
+    public HistoryAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_custom_adapter, parent, false);
+        return new HistoryAdapter.MyViewHolder(view);
+    }
 
+    @Override
+    public void onBindViewHolder(HistoryAdapter.MyViewHolder holder, final int position) {
+
+        holder.nameTxt.setText(users.get(position).getDate());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showdialog(users.get(position).getDate(),users.get(position).getPayed_person_name(),
+                        users.get(position).getTotal_amount(),users.get(position).getEach_amount()
+                        ,users.get(position).getSelected_person(),users.get(position).getRemarks());
+
+            }
+        });
+
+
+    }
+
+    @Override
+    public int getItemCount() {
         return users.size();
     }
-
-    @Override
-    public Object getItem(int position) {
-        return users.get(position);
-    }
-
     @Override
     public long getItemId(int position) {
         return position;
     }
 
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        if (convertView == null) {
-            convertView = LayoutInflater.from(c).inflate(R.layout.item_custom_adapter, parent, false);
+
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+
+        TextView nameTxt ;
+        TextView propTxt ;
+
+        public MyViewHolder(View itemView) {
+
+            super(itemView);
+
+            nameTxt = (TextView) itemView.findViewById(R.id.fname);
+            propTxt = (TextView) itemView.findViewById(R.id.lname);
+
         }
-
-        TextView nameTxt = (TextView) convertView.findViewById(R.id.fname);
-        TextView propTxt = (TextView) convertView.findViewById(R.id.lname);
-
-
-        final AddEntery s = (AddEntery) this.getItem(position);
-
-
-        nameTxt.setText(s.getDate());
-       // propTxt.setText(s.getLname());
-
-
-        //ONITECLICK
-        convertView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                showdialog(s.getDate(),s.getPayed_person_name(),s.getTotal_amount(),s.getEach_amount(),s.getSelected_person(),s.getRemarks());
-
-            }
-        });
-        return convertView;
     }
-
     private void showdialog(final String date, String payed_person, String total_Amount,String Each_amount,String selected_person,String Remarks)
     {
         specfic_item = new Dialog(c);
@@ -107,30 +109,4 @@ public class HistoryAdapter extends BaseAdapter {
         specfic_item.setCancelable(false);
 
     }
-
-//    private boolean deleteArtist(String id) {
-//        //getting the specified artist reference
-//        DatabaseReference dR = FirebaseDatabase.getInstance().getReference("Person").child(id);
-//
-//        //removing artist
-//        dR.removeValue();
-//
-//        Toast.makeText(c, "User Deleted", Toast.LENGTH_LONG).show();
-//
-//        return true;
-//    }
-//
-//    private boolean updateArtist(String id,String Fname,String Lname) {
-//        //getting the specified artist reference
-//        DatabaseReference dR = FirebaseDatabase.getInstance().getReference("Person").child(id);
-//
-//        //updating artist
-//        User artist = new User(id,Fname,Lname);
-//        dR.setValue(artist);
-//        Toast.makeText(c, "User Updated", Toast.LENGTH_LONG).show();
-//        return true;
-//    }
-
-
-
 }

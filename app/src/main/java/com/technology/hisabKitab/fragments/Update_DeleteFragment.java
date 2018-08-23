@@ -71,6 +71,7 @@ public class Update_DeleteFragment extends Fragment implements View.OnClickListe
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
 
+
         db = FirebaseDatabase.getInstance().getReference().child("Person");
         helper = new FireBaseHelper(db);
         updateDeleteAdapter = new UpdateDeleteAdapter(getContext(), helper.retrieve());

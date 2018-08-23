@@ -2,6 +2,9 @@ package com.technology.hisabKitab.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -15,13 +18,16 @@ import android.widget.TextView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.technology.hisabKitab.Adapter.HistoryAdapter;
+import com.technology.hisabKitab.Model.AddEntery;
 import com.technology.hisabKitab.R;
+import com.technology.hisabKitab.utils.AlertDialogHelper;
 import com.technology.hisabKitab.utils.AppUtils;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
-public class HistoryDetailFragment extends Fragment implements View.OnClickListener{
+public class HistoryDetailFragment extends Fragment implements View.OnClickListener,AlertDialogHelper.AlertDialogListener{
     private Update_DeleteFragment.ViewHolder mHolder;
 
     ListView mListView;
@@ -32,6 +38,11 @@ public class HistoryDetailFragment extends Fragment implements View.OnClickListe
     HistoryAdapter adapter;
     Calendar calendar;
     String Current_month;
+    boolean isMultiSelect = false;
+    ArrayList<AddEntery> multiselect_list = new ArrayList<>();
+    AlertDialogHelper alertDialogHelper;
+    RecyclerView recyclerView;
+    private RecyclerView.LayoutManager layoutManager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -68,17 +79,26 @@ public class HistoryDetailFragment extends Fragment implements View.OnClickListe
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+//        alertDialogHelper =new AlertDialogHelper(getContext());
+
         View view = inflater.inflate(R.layout.fragment_history_detail, container, false);
-        mListView = (ListView) view.findViewById(R.id.list);
-        mEmptyView = (TextView) view.findViewById(R.id.txt_empty);
+//        mListView = (ListView) view.findViewById(R.id.list);
+//        mEmptyView = (TextView) view.findViewById(R.id.txt_empty);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
+        layoutManager=new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+
+
         calendar=Calendar.getInstance();
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MMMM-dd");
         Current_month= AppUtils.getFormattedDate(df.format(calendar.getTime()));
 
         db = FirebaseDatabase.getInstance().getReference().child("Months").child(Current_month);
         helper = new Firebase(db);
-        adapter = new HistoryAdapter(getContext(), helper.retrieve());
-        mListView.setAdapter(adapter);
+        adapter = new HistoryAdapter(getContext(), helper.retrieve(),multiselect_list);
+        recyclerView.setAdapter(adapter);
 
 
 
@@ -89,6 +109,21 @@ public class HistoryDetailFragment extends Fragment implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
+
+    }
+
+    @Override
+    public void onPositiveClick(int from) {
+
+    }
+
+    @Override
+    public void onNegativeClick(int from) {
+
+    }
+
+    @Override
+    public void onNeutralClick(int from) {
 
     }
 

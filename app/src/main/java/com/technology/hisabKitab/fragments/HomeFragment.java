@@ -33,7 +33,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof ToolbarListener) {
-            ((ToolbarListener) context).setTitle("Home");
+            ((ToolbarListener) context).setTitle("Dashboard");
         }
     }
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
