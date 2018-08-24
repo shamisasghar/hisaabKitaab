@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.technology.hisabKitab.FrameActivity;
+import com.technology.hisabKitab.MultiSelectFrameActivity;
 import com.technology.hisabKitab.R;
 import com.technology.hisabKitab.SimpleFrameActivity;
 import com.technology.hisabKitab.toolbox.ToolbarListener;
@@ -67,7 +68,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                 ActivityUtils.startActivity(getActivity(), FrameActivity.class,AddEntryFragment.class.getName(),null);
                 break;
             case R.id.cardview_histroy:
-                ActivityUtils.startActivity(getActivity(), SimpleFrameActivity.class,HistoryDetailFragment.class.getName(),null);
+                ActivityUtils.startActivity(getActivity(), FrameActivity.class,HistoryDetailFragment.class.getName(),null);
                 break;
 
             case R.id.cardview_cash:

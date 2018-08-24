@@ -4,11 +4,14 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.technology.hisabKitab.Model.AddEntery;
@@ -18,14 +21,14 @@ import java.util.ArrayList;
 
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHolder> {
     Context c;
-    ArrayList<AddEntery> users;
+    public ArrayList<AddEntery> usersList=new ArrayList<>();
     Dialog specfic_item;
     TextView title,remarks,total_amount,each_amount,person_included,payed_by;
     Button btn_done;
     public ArrayList<AddEntery> selected_usersList=new ArrayList<>();
     public HistoryAdapter(Context c, ArrayList<AddEntery> spacecrafts, ArrayList<AddEntery> selectedList) {
         this.c = c;
-        this.users = spacecrafts;
+        this.usersList = spacecrafts;
         this.selected_usersList = selectedList;
     }
 
@@ -38,24 +41,30 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
     @Override
     public void onBindViewHolder(HistoryAdapter.MyViewHolder holder, final int position) {
 
-        holder.nameTxt.setText(users.get(position).getDate());
+        holder.nameTxt.setText(usersList.get(position).getDate());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showdialog(users.get(position).getDate(),users.get(position).getPayed_person_name(),
-                        users.get(position).getTotal_amount(),users.get(position).getEach_amount()
-                        ,users.get(position).getSelected_person(),users.get(position).getRemarks());
+                showdialog(usersList.get(position).getDate(),usersList.get(position).getPayed_person_name(),
+                        usersList.get(position).getTotal_amount(),usersList.get(position).getEach_amount()
+                        ,usersList.get(position).getSelected_person(),usersList.get(position).getRemarks());
 
             }
         });
+
+        if(selected_usersList.contains(usersList.get(position)))
+            holder.ll_listitem.setBackgroundColor(ContextCompat.getColor(c, R.color.color1));
+        else
+            holder.ll_listitem.setBackgroundColor(ContextCompat.getColor(c, R.color.colorAppBG));
+
 
 
     }
 
     @Override
     public int getItemCount() {
-        return users.size();
+        return usersList.size();
     }
     @Override
     public long getItemId(int position) {
@@ -67,6 +76,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
 
         TextView nameTxt ;
         TextView propTxt ;
+        public CardView ll_listitem;
 
         public MyViewHolder(View itemView) {
 
@@ -74,6 +84,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
 
             nameTxt = (TextView) itemView.findViewById(R.id.fname);
             propTxt = (TextView) itemView.findViewById(R.id.lname);
+            ll_listitem=(CardView) itemView.findViewById(R.id.ll_listitem);
 
         }
     }

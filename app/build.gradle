@@ -36,6 +36,8 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile "com.android.support:support-v4:$supportLib"
     compile "com.android.support:design:$supportLib"
+    implementation 'com.github.drawers:SpinnerDatePicker:1.0.6'
+
 }
 
 apply plugin: 'com.google.gms.google-services'

@@ -1,17 +1,23 @@
 package com.technology.hisabKitab.fragments;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,15 +32,18 @@ import com.technology.hisabKitab.Model.User;
 import com.technology.hisabKitab.R;
 import com.technology.hisabKitab.toolbox.ToolbarListener;
 import com.technology.hisabKitab.utils.AppUtils;
+import com.tsongkha.spinnerdatepicker.SpinnerDatePickerDialogBuilder;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Locale;
 import java.util.TimeZone;
 
-public class AddEntryFragment extends Fragment implements View.OnClickListener {
+public class AddEntryFragment extends Fragment implements View.OnClickListener{
     DatabaseReference db;
     Spinner spinner;
     View view;
@@ -50,8 +59,12 @@ public class AddEntryFragment extends Fragment implements View.OnClickListener {
     ArrayList<Integer> mUserItems = new ArrayList<>();
     String[] aary;
     String selected_person = "";
-    String Current_month;
+    String Current_month,edit_date;
     Calendar calendar;
+    ImageView img_edit;
+    SimpleDateFormat df;
+    SimpleDateFormat simpleDateFormat;
+    private DatePickerDialog.OnDateSetListener onDateSetListener;
 
     @Override
     public void onClick(View view) {
@@ -101,6 +114,7 @@ public class AddEntryFragment extends Fragment implements View.OnClickListener {
 
         view = inflater.inflate(R.layout.fragment_add_entery, container, false);
         spinner = (Spinner) view.findViewById(R.id.Spinner);
+        img_edit = (ImageView) view.findViewById(R.id.image_edit);
         users = new ArrayList<>();
         date_time = (TextView) view.findViewById(R.id.txt_date_time);
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Months");
@@ -112,9 +126,46 @@ public class AddEntryFragment extends Fragment implements View.OnClickListener {
         getdatetime();
         getSpinnerdata();
 
+        img_edit.setOnClickListener(new View.OnClickListener() {
+
+            Calendar c = Calendar.getInstance();
+
+
+            // From calander get the year, month, day, hour, minute
+            int year = c.get(Calendar.YEAR);
+            int month = c.get(Calendar.MONTH);
+            int day = c.get(Calendar.DAY_OF_MONTH);
+
+
+
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getActivity(), "cleick", Toast.LENGTH_SHORT).show();
+                DatePickerDialog datePickerDialog=new DatePickerDialog(getContext(),R.style.DatePickerSpinner,onDateSetListener,year,month,day);
+                datePickerDialog.getWindow();
+                datePickerDialog.show();
+
+            //    showDate(year, month, day, R.style.DatePickerSpinner);
+
+            }
+        });
+        onDateSetListener=new DatePickerDialog.OnDateSetListener() {
+            public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
+                Calendar c = Calendar.getInstance();
+                c = Calendar.getInstance();
+                String month = c.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault());
+                String data = year + "-" + month + "-" + dayOfMonth;
+                current_date_time=data;
+                date_time.setText(current_date_time);
+               // current_date_time=data;
+            }
+        };
+
+
 
         return view;
     }
+
 
     public void getdatetime() {
         SimpleDateFormat outputFmt = new SimpleDateFormat("yyyy-MMMM-dd");
@@ -123,9 +174,8 @@ public class AddEntryFragment extends Fragment implements View.OnClickListener {
         date_time.setText(current_date_time);
 
         calendar= Calendar.getInstance();
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MMMM-dd");
+        df = new SimpleDateFormat("yyyy-MMMM-dd");
         Current_month= AppUtils.getFormattedDate(df.format(calendar.getTime()));
-
 
 
     }
@@ -176,6 +226,7 @@ public class AddEntryFragment extends Fragment implements View.OnClickListener {
 
 
     }
+
 
     public static class ViewHolder {
 
