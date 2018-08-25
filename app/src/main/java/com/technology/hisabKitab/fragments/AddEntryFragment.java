@@ -140,7 +140,7 @@ public class AddEntryFragment extends Fragment implements View.OnClickListener{
 
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity(), "cleick", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(getActivity(), "cleick", Toast.LENGTH_SHORT).show();
                 DatePickerDialog datePickerDialog=new DatePickerDialog(getContext(),R.style.DatePickerSpinner,onDateSetListener,year,month,day);
                 datePickerDialog.getWindow();
                 datePickerDialog.show();

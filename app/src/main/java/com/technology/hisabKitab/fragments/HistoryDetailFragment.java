@@ -45,7 +45,7 @@ public class HistoryDetailFragment extends Fragment implements View.OnClickListe
 
     ListView mListView;
     TextView mEmptyView;
-    DatabaseReference db, userdb;
+    DatabaseReference db, userdb,delete_item;
     DatabaseReference databaseReference;
     FireBaseHelper helper_user;
     Firebase helper;
@@ -237,10 +237,20 @@ public class HistoryDetailFragment extends Fragment implements View.OnClickListe
                                 case R.id.button_positive:
 
                                     if (multiselect_list.size() > 0) {
-                                        for (int i = 0; i < multiselect_list.size(); i++)
+                                        for (int i = 0; i < multiselect_list.size(); i++) {
                                             user_list.remove(multiselect_list.get(i));
+                                            current_date_time = multiselect_list.get(i).getDate();
+                                            DeleteItem(current_date_time);
 
-                                        adapter.notifyDataSetChanged();
+
+                                            adapter.notifyDataSetChanged();
+
+
+
+
+
+                                        }
+
 
                                         if (mActionMode != null) {
                                             mActionMode.finish();
@@ -266,16 +276,6 @@ public class HistoryDetailFragment extends Fragment implements View.OnClickListe
                 case R.id.action_clear:
                     Toast.makeText(getContext(), "clear", Toast.LENGTH_SHORT).show();
                     ShowDialog();
-
-//                    for(int i=0;i<multiselect_list.size();i++) {
-//                        current_date_time = multiselect_list.get(i).getDate();
-//                        AddEntery addEntery = new AddEntery(" ", " ",
-//                                " ", " ",
-//                                " ", current_date_time);
-//                        databaseReference.child(Current_month).child(current_date_time).setValue(addEntery);
-//
-//                        adapter.notifyDataSetChanged();
-//                    }
                     return true;
 
 
@@ -356,7 +356,7 @@ public class HistoryDetailFragment extends Fragment implements View.OnClickListe
             @Override
             public void onClick(DialogInterface dialogInterface, int which) {
                 for (int i = 0; i < mUserItems.size(); i++) {
-                    // checkedItems[i] = false;
+                    //checkedItems[i] = false;
                     mUserItems.clear();
                     // mItemSelected.setText("");
                 }
@@ -400,4 +400,12 @@ public class HistoryDetailFragment extends Fragment implements View.OnClickListe
 
 
     }
+
+    public void DeleteItem(String value)
+    {
+        delete_item = FirebaseDatabase.getInstance().getReference().child("Months").child(Current_month).child(value);
+        delete_item.removeValue();
+
+    }
+
 }
