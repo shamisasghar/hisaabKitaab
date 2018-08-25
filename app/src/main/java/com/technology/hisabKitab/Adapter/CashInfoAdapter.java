@@ -20,6 +20,7 @@ import com.technology.hisabKitab.R;
 import com.technology.hisabKitab.fragments.FireBaseHelper;
 import com.technology.hisabKitab.fragments.Firebase;
 import com.technology.hisabKitab.utils.AppUtils;
+import com.technology.hisabKitab.utils.LoginUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -56,45 +57,6 @@ public class CashInfoAdapter extends RecyclerView.Adapter<CashInfoAdapter.MyView
             @Override
             public void onClick(View view) {
 
-                String amount;
-                String name=users.get(position).getFname();
-
-
-//                     selected_person = addEnteries.get(position).getSelected_person().split(",");
-//                        for(int i=0;i<selected_person.length;i++) {
-//                            Toast.makeText(c, "matches" + selected_person[i], Toast.LENGTH_SHORT).show();
-//                        }
-//                int currentIndex=0;
-
-
-
-
-
-//                for (int i=0;i<addEnteries.size();i++)
-//                {
-//                    if(name.equals(selected_person[position]))
-//                    {
-//                        if(addEnteries.size()!=0) {
-//                            Toast.makeText(c, ""+selected_person[i], Toast.LENGTH_SHORT).show();
-//
-//
-//                            Toast.makeText(c, "match" + addEnteries.get(i).getEach_amount(), Toast.LENGTH_SHORT).show();
-//                        }
-//                        else
-//                        {
-//                            Toast.makeText(c,"Size"+ Integer.toString(addEnteries.size()), Toast.LENGTH_SHORT).show();
-//
-//                        }
-//                    }
-//                    else
-//                    {
-//                        Toast.makeText(c, "nomatch", Toast.LENGTH_SHORT).show();
-//
-//                    }
-
-           //     }
-
-            //    showdialog(users.get(position).getId(),users.get(position).getFname(),users.get(position).getLname());
 
             }
         });
@@ -165,7 +127,7 @@ public class CashInfoAdapter extends RecyclerView.Adapter<CashInfoAdapter.MyView
 
     private boolean deleteArtist(String id) {
         //getting the specified artist reference
-        DatabaseReference dR = FirebaseDatabase.getInstance().getReference("Person").child(id);
+        DatabaseReference dR = FirebaseDatabase.getInstance().getReference().child(LoginUtils.getUserEmail(c)).child("Person").child(id);
 
         //removing artist
         dR.removeValue();
@@ -177,7 +139,7 @@ public class CashInfoAdapter extends RecyclerView.Adapter<CashInfoAdapter.MyView
 
     private boolean updateArtist(String id,String Fname,String Lname) {
         //getting the specified artist reference
-        DatabaseReference dR = FirebaseDatabase.getInstance().getReference("Person").child(id);
+        DatabaseReference dR = FirebaseDatabase.getInstance().getReference().child(LoginUtils.getUserEmail(c)).child("Person").child(id);
 
         //updating artist
         User artist = new User(id,Fname,Lname);

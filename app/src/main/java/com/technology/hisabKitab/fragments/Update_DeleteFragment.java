@@ -18,6 +18,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.technology.hisabKitab.Adapter.UpdateDeleteAdapter;
 import com.technology.hisabKitab.R;
+import com.technology.hisabKitab.utils.LoginUtils;
 
 public class Update_DeleteFragment extends Fragment implements View.OnClickListener {
 
@@ -72,7 +73,7 @@ public class Update_DeleteFragment extends Fragment implements View.OnClickListe
         recyclerView.setHasFixedSize(true);
 
 
-        db = FirebaseDatabase.getInstance().getReference().child("Person");
+        db = FirebaseDatabase.getInstance().getReference().child(LoginUtils.getUserEmail(getContext())).child("Person");
         helper = new FireBaseHelper(db);
         updateDeleteAdapter = new UpdateDeleteAdapter(getContext(), helper.retrieve());
         recyclerView.setAdapter(updateDeleteAdapter);

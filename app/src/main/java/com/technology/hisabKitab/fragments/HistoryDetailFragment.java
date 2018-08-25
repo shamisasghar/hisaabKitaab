@@ -31,6 +31,7 @@ import com.technology.hisabKitab.R;
 import com.technology.hisabKitab.dialog.SimpleDialog;
 import com.technology.hisabKitab.toolbox.ToolbarListener;
 import com.technology.hisabKitab.utils.AppUtils;
+import com.technology.hisabKitab.utils.LoginUtils;
 import com.technology.hisabKitab.utils.RecyclerItemClickListener;
 
 import java.text.SimpleDateFormat;
@@ -123,9 +124,9 @@ public class HistoryDetailFragment extends Fragment implements View.OnClickListe
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("Months");
+        databaseReference = FirebaseDatabase.getInstance().getReference().child(LoginUtils.getUserEmail(getContext())).child("Months");
 
-        userdb = FirebaseDatabase.getInstance().getReference().child("Person");
+        userdb = FirebaseDatabase.getInstance().getReference().child(LoginUtils.getUserEmail(getContext())).child("Person");
         helper_user = new FireBaseHelper(userdb);
         users = helper_user.retrieve();
 
@@ -133,7 +134,7 @@ public class HistoryDetailFragment extends Fragment implements View.OnClickListe
         Getdatetime();
 
 
-        db = FirebaseDatabase.getInstance().getReference().child("Months").child(Current_month);
+        db = FirebaseDatabase.getInstance().getReference().child(LoginUtils.getUserEmail(getContext())).child("Months").child(Current_month);
         helper = new Firebase(db);
         adapter = new HistoryAdapter(getContext(), helper.retrieve(), multiselect_list);
         recyclerView.setAdapter(adapter);
@@ -409,7 +410,7 @@ public class HistoryDetailFragment extends Fragment implements View.OnClickListe
 
     public void DeleteItem(String value)
     {
-        delete_item = FirebaseDatabase.getInstance().getReference().child("Months").child(Current_month).child(value);
+        delete_item = FirebaseDatabase.getInstance().getReference().child(LoginUtils.getUserEmail(getContext())).child("Months").child(Current_month).child(value);
         delete_item.removeValue();
 
     }

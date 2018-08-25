@@ -17,6 +17,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.technology.hisabKitab.Model.User;
 import com.technology.hisabKitab.R;
 import com.technology.hisabKitab.fragments.Update_DeleteFragment;
+import com.technology.hisabKitab.utils.LoginUtils;
 
 import java.util.ArrayList;
 
@@ -115,7 +116,7 @@ public class UpdateDeleteAdapter extends RecyclerView.Adapter<UpdateDeleteAdapte
 
     private boolean deleteArtist(String id) {
         //getting the specified artist reference
-        DatabaseReference dR = FirebaseDatabase.getInstance().getReference("Person").child(id);
+        DatabaseReference dR = FirebaseDatabase.getInstance().getReference().child(LoginUtils.getUserEmail(c)).child("Person").child(id);
 
         //removing artist
         dR.removeValue();
@@ -127,7 +128,7 @@ public class UpdateDeleteAdapter extends RecyclerView.Adapter<UpdateDeleteAdapte
 
     private boolean updateArtist(String id,String Fname,String Lname) {
         //getting the specified artist reference
-        DatabaseReference dR = FirebaseDatabase.getInstance().getReference("Person").child(id);
+        DatabaseReference dR = FirebaseDatabase.getInstance().getReference().child(LoginUtils.getUserEmail(c)).child("Person").child(id);
 
         //updating artist
         User artist = new User(id,Fname,Lname);

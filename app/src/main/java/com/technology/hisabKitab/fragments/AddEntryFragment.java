@@ -32,6 +32,7 @@ import com.technology.hisabKitab.Model.User;
 import com.technology.hisabKitab.R;
 import com.technology.hisabKitab.toolbox.ToolbarListener;
 import com.technology.hisabKitab.utils.AppUtils;
+import com.technology.hisabKitab.utils.LoginUtils;
 import com.tsongkha.spinnerdatepicker.SpinnerDatePickerDialogBuilder;
 
 import java.text.SimpleDateFormat;
@@ -117,8 +118,8 @@ public class AddEntryFragment extends Fragment implements View.OnClickListener{
         img_edit = (ImageView) view.findViewById(R.id.image_edit);
         users = new ArrayList<>();
         date_time = (TextView) view.findViewById(R.id.txt_date_time);
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("Months");
-        db = FirebaseDatabase.getInstance().getReference().child("Person");
+        databaseReference = FirebaseDatabase.getInstance().getReference().child(LoginUtils.getUserEmail(getContext())).child("Months");
+        db = FirebaseDatabase.getInstance().getReference().child(LoginUtils.getUserEmail(getContext())).child("Person");
         helper = new FireBaseHelper(db);
         users = helper.retrieve();
 //        checkedItems = new boolean[listItems.length];

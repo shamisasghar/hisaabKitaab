@@ -9,4 +9,11 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
         android:visible="false"
         app:showAsAction="never" />
 
+    <item
+        android:id="@+id/action_logout"
+        android:icon="@android:drawable/ic_lock_lock"
+        android:title="Search"
+        android:iconTint="@color/colorPrimary"
+        app:showAsAction="ifRoom" />
+
 </menu>

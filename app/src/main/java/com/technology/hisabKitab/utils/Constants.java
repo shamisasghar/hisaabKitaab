@@ -9,7 +9,7 @@ public class Constants {
     public static final String DATA = "data";
     public static final String USER = "user";
     public static final String USER_AVAILABLE = "user available";
-
+    public static final String USER_EMAIL = "user_email";
     public static final String USER_ONE_SIGNAL_ID = "user_one_signal_id";
     public static final int ORDERS_VERIFICATION_TIME = 60; // Seconds
     public static final String FETCH_ORDERS = "fetch orders";

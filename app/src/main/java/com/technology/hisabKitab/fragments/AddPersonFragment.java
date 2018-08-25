@@ -20,6 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.technology.hisabKitab.Model.User;
 import com.technology.hisabKitab.R;
 import com.technology.hisabKitab.toolbox.ToolbarListener;
+import com.technology.hisabKitab.utils.LoginUtils;
 
 public class AddPersonFragment extends Fragment implements View.OnClickListener {
     Dialog Add_person;
@@ -48,7 +49,7 @@ public class AddPersonFragment extends Fragment implements View.OnClickListener 
 //    }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("Person");
+        databaseReference = FirebaseDatabase.getInstance().getReference().child(LoginUtils.getUserEmail(getContext())).child("Person");
 
         view= inflater.inflate(R.layout.fragment_add_person, container, false);
         floatingActionButton=(FloatingActionButton)view.findViewById(R.id.fab_add);

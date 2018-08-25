@@ -30,6 +30,7 @@ import com.technology.hisabKitab.Model.User;
 import com.technology.hisabKitab.R;
 import com.technology.hisabKitab.toolbox.ToolbarListener;
 import com.technology.hisabKitab.utils.AppUtils;
+import com.technology.hisabKitab.utils.LoginUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -117,11 +118,11 @@ public class CashInfoFragment extends Fragment implements View.OnClickListener {
         Current_month = AppUtils.getFormattedDate(df.format(calendar.getTime()));
 
 
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("Months").child(Current_month);
+        databaseReference = FirebaseDatabase.getInstance().getReference().child(LoginUtils.getUserEmail(getContext())).child("Months").child(Current_month);
         firebase = new Firebase(databaseReference);
         firebase.retrieve();
 
-        db = FirebaseDatabase.getInstance().getReference().child("Person");
+        db = FirebaseDatabase.getInstance().getReference().child(LoginUtils.getUserEmail(getContext())).child("Person");
         helper = new FireBaseHelper(db);
         updateDeleteAdapter = new CashInfoAdapter(getContext(), helper.retrieve(), firebase.retrieve());
         recyclerView.setAdapter(updateDeleteAdapter);
