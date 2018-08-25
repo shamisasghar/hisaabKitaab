@@ -129,14 +129,10 @@ public class AddEntryFragment extends Fragment implements View.OnClickListener{
         img_edit.setOnClickListener(new View.OnClickListener() {
 
             Calendar c = Calendar.getInstance();
-
-
             // From calander get the year, month, day, hour, minute
             int year = c.get(Calendar.YEAR);
             int month = c.get(Calendar.MONTH);
             int day = c.get(Calendar.DAY_OF_MONTH);
-
-
 
             @Override
             public void onClick(View view) {
@@ -151,9 +147,9 @@ public class AddEntryFragment extends Fragment implements View.OnClickListener{
         });
         onDateSetListener=new DatePickerDialog.OnDateSetListener() {
             public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
-                Calendar c = Calendar.getInstance();
-                c = Calendar.getInstance();
-                String month = c.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault());
+                Calendar calendar = Calendar.getInstance();
+                calendar = Calendar.getInstance();
+                String month = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault());
                 String data = year + "-" + month + "-" + dayOfMonth;
                 current_date_time=data;
                 date_time.setText(current_date_time);
@@ -191,9 +187,17 @@ public class AddEntryFragment extends Fragment implements View.OnClickListener{
                areas  = new ArrayList<>();
 
                 try {
+
+
                     for (int i = 0; i < users.size(); i++) {
-                        areas.add(String.valueOf(users.get(i).getFname()));
-                        aary= areas.toArray(new String[i]);
+                        if(i==0)
+                        {
+                            areas.add("Select Payed Person");
+                        }
+                        else {
+                            areas.add(String.valueOf(users.get(i).getFname()));
+                            aary = areas.toArray(new String[i]);
+                        }
                       //
                         //  Toast.makeText(getContext(), ""+listItems, Toast.LENGTH_SHORT).show();
                     }
@@ -205,7 +209,7 @@ public class AddEntryFragment extends Fragment implements View.OnClickListener{
                         @Override
                         public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
                             spinner_item=areasAdapter.getItem(position);
-                            Toast.makeText(getContext(), ""+spinner_item, Toast.LENGTH_SHORT).show();
+                         //   Toast.makeText(getContext(), ""+spinner_item, Toast.LENGTH_SHORT).show();
                         }
 
                         @Override

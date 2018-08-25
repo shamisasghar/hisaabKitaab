@@ -160,8 +160,13 @@ public class CashInfoFragment extends Fragment implements View.OnClickListener {
 
                 try {
                     for (int i = 0; i < users.size(); i++) {
-                        areas.add(String.valueOf(users.get(i).getFname()));
-                        aary = areas.toArray(new String[i]);
+                        if (i == 0) {
+                            areas.add("Select Person");
+                        } else {
+
+                            areas.add(String.valueOf(users.get(i).getFname()));
+                            aary = areas.toArray(new String[i]);
+                        }
                         //
                         //  Toast.makeText(getContext(), ""+listItems, Toast.LENGTH_SHORT).show();
                     }
@@ -202,23 +207,21 @@ public class CashInfoFragment extends Fragment implements View.OnClickListener {
         int amount = 0;
 
         for (int i = 0; i < addEnteries.size(); i++) {
-            selected_person = addEnteries.get(i).getSelected_person().split(String.valueOf(','));
 
-            for (String element : selected_person) {
-                if (element.equals(" " + spinner_item)) {
+                selected_person = addEnteries.get(i).getSelected_person().split(String.valueOf(','));
 
-                    amount += Integer.parseInt(addEnteries.get(i).getEach_amount());
-                    // Toast.makeText(getContext(), "matches" + addEnteries.get(i), Toast.LENGTH_SHORT).show();
+                for (String element : selected_person) {
+                    if (element.equals(" " + spinner_item)) {
+
+                        amount += Integer.parseInt(addEnteries.get(i).getEach_amount());
+                        // Toast.makeText(getContext(), "matches" + addEnteries.get(i), Toast.LENGTH_SHORT).show();
+                    } else if (element.equals(spinner_item)) {
+                        amount += Integer.parseInt(addEnteries.get(i).getEach_amount());
+
+                    }
                 }
-                else if(element.equals(spinner_item))
-                {
-                    amount += Integer.parseInt(addEnteries.get(i).getEach_amount());
-
-                }
-
             }
-        }
-        Toast.makeText(getContext(), "Amount Remaining:"+spinner_item+" "+amount, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "Amount Remaining:" + spinner_item + " " + amount, Toast.LENGTH_SHORT).show();
 
     }
 

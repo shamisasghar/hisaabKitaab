@@ -51,7 +51,7 @@ public class HistoryDetailFragment extends Fragment implements View.OnClickListe
     Firebase helper;
     HistoryAdapter adapter;
     Calendar calendar;
-    String Current_month, current_date_time, each_amount,payed_person,remarks;
+    String Current_month, current_date_time, each_amount,payed_person,remarks,totalamount;
     boolean isMultiSelect = false;
     ArrayList<AddEntery> multiselect_list = new ArrayList<>();
     ArrayList<AddEntery> user_list = new ArrayList<>();
@@ -296,7 +296,7 @@ public class HistoryDetailFragment extends Fragment implements View.OnClickListe
     public void ShowDialog() {
 //        checkedItems = new boolean[listItems.size()];
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(getContext());
-        mBuilder.setTitle("select person's");
+        mBuilder.setTitle("select person's not payed yet!");
         mBuilder.setMultiChoiceItems(aary, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int position, boolean isChecked) {
@@ -323,7 +323,7 @@ public class HistoryDetailFragment extends Fragment implements View.OnClickListe
                 for (int i = 0; i < mUserItems.size(); i++) {
                     selected_person = selected_person + aary[mUserItems.get(i)];
                     if (i != mUserItems.size() - 1) {
-                        selected_person = selected_person + ", ";
+                        selected_person = selected_person + ",";
                     }
                 }
 
@@ -332,15 +332,20 @@ public class HistoryDetailFragment extends Fragment implements View.OnClickListe
                     each_amount = multiselect_list.get(i).getEach_amount();
                     remarks=multiselect_list.get(i).getRemarks();
                     payed_person=multiselect_list.get(i).getPayed_person_name();
-                    AddEntery addEntery = new AddEntery(payed_person, " ",
+                    totalamount=multiselect_list.get(i).getTotal_amount();
+
+                    AddEntery addEntery = new AddEntery(payed_person,
+                            totalamount,
                             each_amount, remarks,
-                            selected_person, current_date_time);
+                            selected_person,
+                            current_date_time);
                     databaseReference.child(Current_month).child(current_date_time).setValue(addEntery);
 
                     adapter.notifyDataSetChanged();
                 }
 
-                Toast.makeText(getContext(), "" + selected_person, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Successfully Updated", Toast.LENGTH_SHORT).show();
+                getActivity().finish();
                 //  mItemSelected.setText(selected_person);
             }
         });
@@ -355,11 +360,12 @@ public class HistoryDetailFragment extends Fragment implements View.OnClickListe
         mBuilder.setNeutralButton("Clear all", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int which) {
-                for (int i = 0; i < mUserItems.size(); i++) {
-                    //checkedItems[i] = false;
-                    mUserItems.clear();
-                    // mItemSelected.setText("");
-                }
+//                for (int i = 0; i < mUserItems.size(); i++) {
+//                    //checkedItems[i] = false;
+//                    mUserItems.clear();
+//                    // mItemSelected.setText("");
+//                }
+                mUserItems.clear();
             }
         });
 
