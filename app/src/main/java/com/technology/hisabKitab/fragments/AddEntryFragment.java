@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -66,6 +67,7 @@ public class AddEntryFragment extends Fragment implements View.OnClickListener{
     SimpleDateFormat df;
     SimpleDateFormat simpleDateFormat;
     private DatePickerDialog.OnDateSetListener onDateSetListener;
+    ProgressBar progressBar;
 
     @Override
     public void onClick(View view) {
@@ -115,6 +117,7 @@ public class AddEntryFragment extends Fragment implements View.OnClickListener{
 
         view = inflater.inflate(R.layout.fragment_add_entery, container, false);
         spinner = (Spinner) view.findViewById(R.id.Spinner);
+        progressBar=(ProgressBar)view.findViewById(R.id.progress_bar);
         img_edit = (ImageView) view.findViewById(R.id.image_edit);
         users = new ArrayList<>();
         date_time = (TextView) view.findViewById(R.id.txt_date_time);
@@ -122,6 +125,7 @@ public class AddEntryFragment extends Fragment implements View.OnClickListener{
         db = FirebaseDatabase.getInstance().getReference().child(LoginUtils.getUserEmail(getContext())).child("Person");
         helper = new FireBaseHelper(db);
         users = helper.retrieve();
+        progressBar.setVisibility(View.VISIBLE);
 //        checkedItems = new boolean[listItems.length];
 
         getdatetime();
@@ -185,22 +189,29 @@ public class AddEntryFragment extends Fragment implements View.OnClickListener{
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
+                progressBar.setVisibility(View.GONE);
+
                areas  = new ArrayList<>();
 
                 try {
 
 
                     for (int i = 0; i < users.size(); i++) {
-                        if(i==0)
-                        {
-                            areas.add("Select Payed Person");
-                        }
-                        else {
+//                        if(i==0)
+//                        {
+//                            areas.add("Select Payed Person");
+//                        }
+//                        else {
                             areas.add(String.valueOf(users.get(i).getFname()));
+
                             aary = areas.toArray(new String[i]);
-                        }
+                   //     }
                       //
                         //  Toast.makeText(getContext(), ""+listItems, Toast.LENGTH_SHORT).show();
+                    }
+                    if(areas!=null)
+                    {
+                        progressBar.setVisibility(View.GONE);
                     }
 
                     final ArrayAdapter<String> areasAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, areas);
@@ -220,6 +231,8 @@ public class AddEntryFragment extends Fragment implements View.OnClickListener{
                     });
 
                 } catch (Exception ex) {
+                    progressBar.setVisibility(View.GONE);
+
                 }
             }
 
@@ -317,8 +330,8 @@ public class AddEntryFragment extends Fragment implements View.OnClickListener{
         AddEntery addEntery=new AddEntery(spinner_item,mHolder.total_amount.getText().toString(),
                 mHolder.each_amount.getText().toString(),mHolder.remarks.getText().toString(),
                 selected_person,current_date_time);
-
         databaseReference.child(Current_month).child(current_date_time).setValue(addEntery);
+        getActivity().finish();
 
     }
 

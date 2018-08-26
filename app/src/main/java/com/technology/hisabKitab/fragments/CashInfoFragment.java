@@ -67,7 +67,7 @@ public class CashInfoFragment extends Fragment implements View.OnClickListener {
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof ToolbarListener) {
-            ((ToolbarListener) context).setTitle("Stipend");
+            ((ToolbarListener) context).setTitle("Recovery");
         }
     }
 

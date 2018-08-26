@@ -1,5 +1,6 @@
 package com.technology.hisabKitab.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,6 +19,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.technology.hisabKitab.Adapter.UpdateDeleteAdapter;
 import com.technology.hisabKitab.R;
+import com.technology.hisabKitab.toolbox.ToolbarListener;
 import com.technology.hisabKitab.utils.LoginUtils;
 
 public class Update_DeleteFragment extends Fragment implements View.OnClickListener {
@@ -60,6 +62,14 @@ public class Update_DeleteFragment extends Fragment implements View.OnClickListe
 //        });
 
 
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof ToolbarListener) {
+            ((ToolbarListener) context).setTitle("Update/Delete");
+        }
     }
 
 

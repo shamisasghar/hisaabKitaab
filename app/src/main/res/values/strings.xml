@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Hisab Kitab</string>
+    <string name="app_name">Recovery Manager</string>
     <string name="title_activity_login">Sign In</string>
     <string name="title_products">Products</string>
     <string name="title_branches">Stores</string>

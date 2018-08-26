@@ -13,7 +13,6 @@
        android:layout_gravity="end|bottom"
        android:src="@drawable/ic_plus"
        android:tint="@color/colorPrimary"
-
        />
 
 

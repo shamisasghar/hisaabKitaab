@@ -99,7 +99,7 @@ public class TabFragment extends Fragment implements View.OnClickListener, Toolb
 
         @Override
         public int getCount() {
-            return 3;
+            return 1;
         }
 
         @Override
@@ -109,10 +109,10 @@ public class TabFragment extends Fragment implements View.OnClickListener, Toolb
                     String var = "Add person";
 
                     return var;
-                case 1:
-                    return "update/delete";
-                case 2:
-                    return "FAILED";
+//                case 1:
+//                    return "update/delete";
+//                case 2:
+//                    return "FAILED";
             }
             return null;
         }

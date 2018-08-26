@@ -28,8 +28,17 @@ public class AddPersonFragment extends Fragment implements View.OnClickListener 
     Button btn_submit;
     String fname, lname;
     View view;
+    Context mContext;
     DatabaseReference databaseReference;
     FloatingActionButton floatingActionButton;
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof ToolbarListener) {
+            ((ToolbarListener) context).setTitle("Add person");
+        }
+        mContext=context;
+    }
 
 
     @Override
