@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 
+import com.onesignal.OneSignal;
 import com.technology.hisabKitab.utils.ActivityUtils;
 
 
@@ -25,6 +26,7 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        initOneSignal();
         mHandler = new Handler();
         mHandler.postDelayed(mRunnable, 1000);
 
@@ -38,4 +40,14 @@ public class SplashActivity extends AppCompatActivity {
         super.onBackPressed();
     }
 
+    public void initOneSignal()
+    {
+        OneSignal.startInit(this)
+                .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
+                .unsubscribeWhenNotificationsAreDisabled(true)
+                .init();
+
+
+
+    }
 }

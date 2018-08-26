@@ -161,13 +161,13 @@ public class CashInfoFragment extends Fragment implements View.OnClickListener {
 
                 try {
                     for (int i = 0; i < users.size(); i++) {
-                        if (i == 0) {
-                            areas.add("Select Person");
-                        } else {
+//                        if (i == 0) {
+//                            areas.add("Select Person");
+//                        } else {
 
                             areas.add(String.valueOf(users.get(i).getFname()));
                             aary = areas.toArray(new String[i]);
-                        }
+                      //  }
                         //
                         //  Toast.makeText(getContext(), ""+listItems, Toast.LENGTH_SHORT).show();
                     }

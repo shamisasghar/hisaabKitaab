@@ -97,7 +97,7 @@ public class AddEntryFragment extends Fragment implements View.OnClickListener{
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof ToolbarListener) {
-            ((ToolbarListener) context).setTitle("Today Entry");
+            ((ToolbarListener) context).setTitle("Today Entery");
         }
     }
 

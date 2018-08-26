@@ -1,3 +1,13 @@
+
+plugins {
+    id 'com.onesignal.androidsdk.onesignal-gradle-plugin' version '0.8.1'
+}
+apply plugin: 'com.onesignal.androidsdk.onesignal-gradle-plugin'
+
+repositories {
+    maven { url 'https://maven.google.com' }
+}
+
 apply plugin: 'com.android.application'
 
 android {
@@ -10,6 +20,11 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        manifestPlaceholders = [
+                onesignal_app_id: '720b0741-307c-4d08-9be0-3445acbc95dd',
+                // Project number pulled from dashboard, local value is ignored.
+                onesignal_google_project_number: '870640871158'
+        ]
     }
     buildTypes {
         release {
@@ -24,6 +39,8 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "com.android.support:appcompat-v7:$supportLib"
     implementation 'com.google.firebase:firebase-database:11.8.0'
+    implementation 'com.onesignal:OneSignal:[3.9.1, 3.99.99]'
+
     compile 'com.google.firebase:firebase-core:11.8.0'
 
     testImplementation 'junit:junit:4.12'
