@@ -5,6 +5,7 @@
     android:layout_margin="10dp"
     android:id="@+id/ll_listitem"
     card_view:cardCornerRadius="5dp"
+    card_view:cardBackgroundColor="@color/colorPrimary"
     card_view:cardElevation="5dp"
     android:layout_height="wrap_content">
 
@@ -24,8 +25,9 @@
                 android:layout_height="match_parent"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:hint="Date"
+                android:layout_marginStart="@dimen/spacing_small"
                 android:gravity="left|center"
-                android:textColor="@color/colorBranchText"
+                android:textColor="@color/colorPrimaryDark"
                 android:id="@+id/fname"
                 android:textSize="@dimen/app_title_small"
                 android:layout_alignParentLeft="true"
@@ -49,6 +51,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:tint="@color/colorMain"
                 android:src="@drawable/ic_right_arrow"/>
 
         </LinearLayout>

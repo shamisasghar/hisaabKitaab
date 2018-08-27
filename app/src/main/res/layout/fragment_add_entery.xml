@@ -99,9 +99,10 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginStart="10dp"
                 android:hint="Each Amount"
-                android:imeOptions="actionNext"
-                android:inputType="number"
-                android:maxLength="10"
+                android:clickable="false"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
                 android:textColor="@color/colorPrimaryDark"
                 android:textColorHint="@color/colorPrimaryDark" />
 

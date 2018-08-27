@@ -72,8 +72,9 @@ public class AddEnteryFragment extends Fragment implements View.OnClickListener{
     ArrayList<Integer> mUserItems = new ArrayList<>();
     String[] aary;
     String selected_person = "";
-    String Current_month,edit_date;
+    String Current_month,totalamount;
     Calendar calendar;
+    int eachamount;
     ImageView img_edit;
     SimpleDateFormat df;
     SimpleDateFormat simpleDateFormat;
@@ -137,6 +138,8 @@ public class AddEnteryFragment extends Fragment implements View.OnClickListener{
         helper = new FireBaseHelper(db);
         users = helper.retrieve();
         progressBar.setVisibility(View.VISIBLE);
+
+
 //        checkedItems = new boolean[listItems.length];
 
         getdatetime();
@@ -206,7 +209,6 @@ public class AddEnteryFragment extends Fragment implements View.OnClickListener{
 
                 try {
 
-
                     for (int i = 0; i < users.size(); i++) {
 //                        if(i==0)
 //                        {
@@ -226,7 +228,6 @@ public class AddEnteryFragment extends Fragment implements View.OnClickListener{
                     }
 
                     final ArrayAdapter<String> areasAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, areas);
-
                     spinner.setAdapter(areasAdapter);
                     spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
@@ -262,6 +263,7 @@ public class AddEnteryFragment extends Fragment implements View.OnClickListener{
         Button button_add_person, button_add_entery;
         EditText total_amount,each_amount,remarks;
 
+
         public ViewHolder(View view) {
             button_add_entery = (Button) view.findViewById(R.id.btn_save_entery);
             button_add_person = (Button) view.findViewById(R.id.btn_add_person);
@@ -274,12 +276,18 @@ public class AddEnteryFragment extends Fragment implements View.OnClickListener{
     }
     public void ShowDialog()
     {
+        if(mHolder.total_amount.getText().toString().equals(""))
+        {
+            AppUtils.showSnackBar(getView(),"Add Total Amount First");
+
+        }
+        else {
 //        checkedItems = new boolean[listItems.size()];
-        AlertDialog.Builder mBuilder = new AlertDialog.Builder(getContext());
-        mBuilder.setTitle("select person's");
-        mBuilder.setMultiChoiceItems(aary, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int position, boolean isChecked) {
+            AlertDialog.Builder mBuilder = new AlertDialog.Builder(getContext());
+            mBuilder.setTitle("Select Dining Person's except Payed Person");
+            mBuilder.setMultiChoiceItems(aary, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int position, boolean isChecked) {
 //                        if (isChecked) {
 //                            if (!mUserItems.contains(position)) {
 //                                mUserItems.add(position);
@@ -287,59 +295,71 @@ public class AddEnteryFragment extends Fragment implements View.OnClickListener{
 //                        } else if (mUserItems.contains(position)) {
 //                            mUserItems.remove(position);
 //                        }
-                if(isChecked){
-                    mUserItems.add(position);
-                }else{
-                    mUserItems.remove((Integer.valueOf(position)));
-                }
-            }
-        });
-
-        mBuilder.setCancelable(false);
-        mBuilder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int which) {
-
-                for (int i = 0; i < mUserItems.size(); i++) {
-                    selected_person = selected_person + aary[mUserItems.get(i)];
-                    if (i != mUserItems.size() - 1) {
-                        selected_person = selected_person + ", ";
+                    if (isChecked) {
+                        mUserItems.add(position);
+                    } else {
+                        mUserItems.remove((Integer.valueOf(position)));
                     }
                 }
-                Toast.makeText(getContext(), ""+ selected_person, Toast.LENGTH_SHORT).show();
-              //  mItemSelected.setText(selected_person);
-            }
-        });
+            });
 
-        mBuilder.setNegativeButton("Dismiss", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
-            }
-        });
+            mBuilder.setCancelable(false);
+            mBuilder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int which) {
 
-        mBuilder.setNeutralButton("Clear all", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int which) {
-                for (int i = 0; i < mUserItems.size(); i++) {
-                   // checkedItems[i] = false;
-                    mUserItems.clear();
-                   // mItemSelected.setText("");
+                    for (int i = 0; i < mUserItems.size(); i++) {
+                        selected_person = selected_person + aary[mUserItems.get(i)];
+                        if (i != mUserItems.size() - 1) {
+                            selected_person = selected_person + ", ";
+                        }
+                    }
+                    Toast.makeText(getContext(), "" + selected_person, Toast.LENGTH_SHORT).show();
+                    GetEachAmount();
+                    //  mItemSelected.setText(selected_person);
                 }
-            }
-        });
+            });
 
-        AlertDialog mDialog = mBuilder.create();
-        mDialog.show();
+            mBuilder.setNegativeButton("Dismiss", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.dismiss();
+                }
+            });
 
+            mBuilder.setNeutralButton("Clear all", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int which) {
+                    for (int i = 0; i < mUserItems.size(); i++) {
+                        // checkedItems[i] = false;
+                        mUserItems.clear();
+                        // mItemSelected.setText("");
+                    }
+                }
+            });
+
+            AlertDialog mDialog = mBuilder.create();
+            mDialog.show();
+        }
 
     }
+    public void GetEachAmount()
+    {
+        totalamount=mHolder.total_amount.getText().toString();
+        int size=mUserItems.size();
+        eachamount=Integer.parseInt(totalamount)/(size+1);
+        mHolder.each_amount.setText(String.valueOf(eachamount));
+  //      Toast.makeText(getContext(), ""+String.valueOf(eachamount), Toast.LENGTH_SHORT).show();
+
+    }
+
+
 
     public void Today_Entery()
     {
 
         AddEntery addEntery=new AddEntery(spinner_item,mHolder.total_amount.getText().toString(),
-                mHolder.each_amount.getText().toString(),mHolder.remarks.getText().toString(),
+                String.valueOf(eachamount),mHolder.remarks.getText().toString(),
                 selected_person,current_date_time);
         databaseReference.child(Current_month).child(current_date_time).setValue(addEntery);
         sendNotification();

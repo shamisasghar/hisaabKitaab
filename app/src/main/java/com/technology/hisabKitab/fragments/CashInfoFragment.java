@@ -172,7 +172,7 @@ public class CashInfoFragment extends Fragment implements View.OnClickListener {
                         //  Toast.makeText(getContext(), ""+listItems, Toast.LENGTH_SHORT).show();
                     }
 
-                    final ArrayAdapter<String> areasAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, areas);
+                    final ArrayAdapter<String> areasAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_activated_1, areas);
 
                     spinner.setAdapter(areasAdapter);
                     spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -198,7 +198,7 @@ public class CashInfoFragment extends Fragment implements View.OnClickListener {
 
             }
         });
-        
+
     }
 
     String[] selected_person;
@@ -221,7 +221,8 @@ public class CashInfoFragment extends Fragment implements View.OnClickListener {
                     }
                 }
             }
-        Toast.makeText(getContext(), "Amount Remaining:" + spinner_item + " " + amount, Toast.LENGTH_SHORT).show();
+      //  Toast.makeText(getContext(), "Amount Remaining:" + spinner_item + " " + amount, Toast.LENGTH_SHORT).show();
+        AppUtils.showSnackBar(getView(),"Amount Remaining: "+spinner_item+" Rs "+amount);
 
     }
 

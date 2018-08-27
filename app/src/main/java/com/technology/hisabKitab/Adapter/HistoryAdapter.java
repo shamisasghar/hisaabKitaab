@@ -54,9 +54,9 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
         });
 
         if(selected_usersList.contains(usersList.get(position)))
-            holder.ll_listitem.setBackgroundColor(ContextCompat.getColor(c, R.color.color1));
+            holder.ll_listitem.setBackgroundColor(ContextCompat.getColor(c, R.color.colorButtonTintUnChecked));
         else
-            holder.ll_listitem.setBackgroundColor(ContextCompat.getColor(c, R.color.colorAppBG));
+            holder.ll_listitem.setBackgroundColor(ContextCompat.getColor(c, R.color.colorPrimary));
 
 
 
