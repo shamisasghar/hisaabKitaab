@@ -8,6 +8,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,11 +29,17 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.technology.hisabKitab.Api.ApiClient;
+import com.technology.hisabKitab.Api.ApiInterface;
 import com.technology.hisabKitab.Model.AddEntery;
+import com.technology.hisabKitab.Model.Contents;
+import com.technology.hisabKitab.Model.Data;
+import com.technology.hisabKitab.Model.Notification;
 import com.technology.hisabKitab.Model.User;
 import com.technology.hisabKitab.R;
 import com.technology.hisabKitab.toolbox.ToolbarListener;
 import com.technology.hisabKitab.utils.AppUtils;
+import com.technology.hisabKitab.utils.Constants;
 import com.technology.hisabKitab.utils.LoginUtils;
 import com.tsongkha.spinnerdatepicker.SpinnerDatePickerDialogBuilder;
 
@@ -45,7 +52,11 @@ import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
-public class AddEntryFragment extends Fragment implements View.OnClickListener{
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class AddEnteryFragment extends Fragment implements View.OnClickListener{
     DatabaseReference db;
     Spinner spinner;
     View view;
@@ -331,9 +342,38 @@ public class AddEntryFragment extends Fragment implements View.OnClickListener{
                 mHolder.each_amount.getText().toString(),mHolder.remarks.getText().toString(),
                 selected_person,current_date_time);
         databaseReference.child(Current_month).child(current_date_time).setValue(addEntery);
+        sendNotification();
         getActivity().finish();
 
     }
+    public void sendNotification()
+    {
+        ApiInterface apiService =
+                ApiClient.getClient().create(ApiInterface.class);
+        Notification request = new Notification();
+        request.app_id="720b0741-307c-4d08-9be0-3445acbc95dd";
+        request.contents=new Contents();
+        request.contents.en="New Entery Added\n";
+        request.data = new Data();
+        request.data.data="data";
+        request.included_segments=new ArrayList<>();
+        request.included_segments.add("All");
+        Call<Object> call = apiService.postPackets(request);
+        call.enqueue(new Callback<Object>() {
+            @Override
+            public void onResponse(Call<Object> call, Response<Object> response) {
+//                hideLoader();
+//                finish();
+            }
+
+            @Override
+            public void onFailure(Call<Object> call, Throwable t) {
+                Log.d("TAAAG", "" + t.getMessage());
+
+            }
+        });
+    }
+
 
 
 }

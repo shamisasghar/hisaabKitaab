@@ -198,8 +198,7 @@ public class CashInfoFragment extends Fragment implements View.OnClickListener {
 
             }
         });
-
-
+        
     }
 
     String[] selected_person;

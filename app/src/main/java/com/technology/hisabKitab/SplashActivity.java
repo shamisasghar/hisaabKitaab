@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import com.onesignal.OneSignal;
 import com.technology.hisabKitab.utils.ActivityUtils;
 
-
 /**
  * Created by Bilal Rashid on 10/8/2017.
  */

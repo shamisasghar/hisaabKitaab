@@ -136,7 +136,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/spacing_medium"
                     android:background="@color/colorDividerLine"
-                    android:hint="Add Person"
+                    android:hint="Select Person"
                     android:layout_weight="1"
                     android:textColorHint="@color/colorAppBG" />
 
@@ -146,7 +146,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@color/colorPrimaryDark"
-                    android:hint="Save Entry"
+                    android:hint="Save Entery"
                     android:textColorHint="@color/colorAppBG" />
 
             </LinearLayout>

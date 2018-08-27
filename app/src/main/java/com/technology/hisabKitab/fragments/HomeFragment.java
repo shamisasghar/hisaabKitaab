@@ -6,15 +6,11 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.technology.hisabKitab.FrameActivity;
-import com.technology.hisabKitab.MultiSelectFrameActivity;
 import com.technology.hisabKitab.R;
-import com.technology.hisabKitab.SimpleFrameActivity;
 import com.technology.hisabKitab.toolbox.ToolbarListener;
 import com.technology.hisabKitab.utils.ActivityUtils;
 
@@ -66,7 +62,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                 ActivityUtils.startActivity(getActivity(), FrameActivity.class,Update_DeleteFragment.class.getName(),null);
                 break;
             case R.id.cardview_add_entry:
-                ActivityUtils.startActivity(getActivity(), FrameActivity.class,AddEntryFragment.class.getName(),null);
+                ActivityUtils.startActivity(getActivity(), FrameActivity.class,AddEnteryFragment.class.getName(),null);
                 break;
             case R.id.cardview_histroy:
                 ActivityUtils.startActivity(getActivity(), FrameActivity.class,HistoryDetailFragment.class.getName(),null);
