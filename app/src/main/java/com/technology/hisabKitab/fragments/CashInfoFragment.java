@@ -205,10 +205,22 @@ public class CashInfoFragment extends Fragment implements View.OnClickListener {
 
     public void getcashamount() {
         int amount = 0;
+        int total_amount=0;
+        int deposit_amount=0;
 
         for (int i = 0; i < addEnteries.size(); i++) {
 
                 selected_person = addEnteries.get(i).getSelected_person().split(String.valueOf(','));
+            String name=addEnteries.get(i).getPayed_person_name();
+
+            if(name.equals(spinner_item))
+            {
+                String totalamount=addEnteries.get(i).getTotal_amount();
+                String eachamount=addEnteries.get(i).getEach_amount();
+                total_amount+=Integer.parseInt(totalamount)-Integer.parseInt(eachamount);
+
+            }
+
 
                 for (String element : selected_person) {
                     if (element.equals(" " + spinner_item)) {
@@ -218,12 +230,15 @@ public class CashInfoFragment extends Fragment implements View.OnClickListener {
                     } else if (element.equals(spinner_item)) {
                         amount += Integer.parseInt(addEnteries.get(i).getEach_amount());
 
+
                     }
                 }
-            }
-      //  Toast.makeText(getContext(), "Amount Remaining:" + spinner_item + " " + amount, Toast.LENGTH_SHORT).show();
-        AppUtils.showSnackBar(getView(),"Amount Remaining: "+spinner_item+" Rs "+amount);
 
+            }
+        deposit_amount=total_amount-amount;
+      //  Toast.makeText(getContext(), "Amount Remaining:" + spinner_item + " " + amount, Toast.LENGTH_SHORT).show();
+        AppUtils.showSnackBar(getView(),"Amount Remaining :"+spinner_item+" Rs: "+amount+"\n"+"Amount Deposit "+"Rs: "+String.valueOf(deposit_amount));
+       // Toast.makeText(getContext(), "found"+String.valueOf(total_amount), Toast.LENGTH_SHORT).show();
     }
 
 

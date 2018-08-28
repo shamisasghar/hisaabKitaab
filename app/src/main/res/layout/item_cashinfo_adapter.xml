@@ -42,19 +42,32 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/spacing_small"
-                    android:layout_weight="1"
+                    android:layout_weight="2"
                     android:text="Remarks"
-                    android:textColor="@color/colorMain"
+                    android:textSize="14sp"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <TextView
                     android:id="@+id/txt_payed_by"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="2"
                     android:gravity="center"
-                    android:textColor="@color/colorMain"
+                    android:textSize="14sp"
+                    android:textColor="@color/colorPrimaryDark"
                     android:text="Payed By"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                <TextView
+                    android:id="@+id/txt_total_amount"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="@dimen/spacing_small"
+                    android:gravity="center|right"
+                    android:textSize="10sp"
+                    android:textColor="@color/colorMain"
+                    android:text="Rs:121"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
             </LinearLayout>

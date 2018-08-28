@@ -53,6 +53,7 @@ public class CashInfoAdapter extends RecyclerView.Adapter<CashInfoAdapter.MyView
         holder.nameTxt.setText(addEnteries.get(position).getDate());
         holder.propTxt.setText(addEnteries.get(position).getRemarks());
         holder.payed_by.setText(addEnteries.get(position).getPayed_person_name());
+        holder.total_amount.setText("Rs: "+addEnteries.get(position).getTotal_amount());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,6 +76,8 @@ public class CashInfoAdapter extends RecyclerView.Adapter<CashInfoAdapter.MyView
         TextView nameTxt ;
         TextView propTxt ;
         TextView payed_by;
+        TextView total_amount;
+
 
         public MyViewHolder(View itemView) {
 
@@ -83,6 +86,7 @@ public class CashInfoAdapter extends RecyclerView.Adapter<CashInfoAdapter.MyView
             nameTxt = (TextView) itemView.findViewById(R.id.fname);
             propTxt = (TextView) itemView.findViewById(R.id.lname);
             payed_by = (TextView) itemView.findViewById(R.id.txt_payed_by);
+            total_amount = (TextView) itemView.findViewById(R.id.txt_total_amount);
 
         }
     }
