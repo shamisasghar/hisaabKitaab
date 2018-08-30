@@ -20,6 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.technology.hisabKitab.Model.User;
 import com.technology.hisabKitab.R;
 import com.technology.hisabKitab.toolbox.ToolbarListener;
+import com.technology.hisabKitab.utils.AppUtils;
 import com.technology.hisabKitab.utils.LoginUtils;
 
 public class AddPersonFragment extends Fragment implements View.OnClickListener {
@@ -115,11 +116,11 @@ public class AddPersonFragment extends Fragment implements View.OnClickListener 
         lname = dialog_lname.getText().toString().trim();
         if(TextUtils.isEmpty(fname))
         {
-            Toast.makeText(getContext(), "enter first name ", Toast.LENGTH_SHORT).show();
+            AppUtils.showSnackBar(getView(),"Enter First Name");
         }
         else if(TextUtils.isEmpty(lname))
         {
-            Toast.makeText(getContext(), "enter last name ", Toast.LENGTH_SHORT).show();
+            AppUtils.showSnackBar(getView(),"Enter Last Name");
 
         }
         else {

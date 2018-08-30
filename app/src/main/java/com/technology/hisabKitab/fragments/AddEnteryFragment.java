@@ -8,7 +8,9 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.util.Log;
+import android.util.Size;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,11 +31,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.onesignal.OneSignal;
 import com.technology.hisabKitab.Api.ApiClient;
 import com.technology.hisabKitab.Api.ApiInterface;
 import com.technology.hisabKitab.Model.AddEntery;
 import com.technology.hisabKitab.Model.Contents;
 import com.technology.hisabKitab.Model.Data;
+import com.technology.hisabKitab.Model.Filter;
 import com.technology.hisabKitab.Model.Notification;
 import com.technology.hisabKitab.Model.User;
 import com.technology.hisabKitab.R;
@@ -80,6 +84,8 @@ public class AddEnteryFragment extends Fragment implements View.OnClickListener{
     SimpleDateFormat simpleDateFormat;
     private DatePickerDialog.OnDateSetListener onDateSetListener;
     ProgressBar progressBar;
+String Remarks,TotalAmount;
+    int size;
 
     @Override
     public void onClick(View view) {
@@ -138,6 +144,7 @@ public class AddEnteryFragment extends Fragment implements View.OnClickListener{
         helper = new FireBaseHelper(db);
         users = helper.retrieve();
         progressBar.setVisibility(View.VISIBLE);
+        Toast.makeText(getContext(), ""+LoginUtils.getUserEmail(getContext()), Toast.LENGTH_SHORT).show();
 
 
 //        checkedItems = new boolean[listItems.length];
@@ -346,7 +353,7 @@ public class AddEnteryFragment extends Fragment implements View.OnClickListener{
     public void GetEachAmount()
     {
         totalamount=mHolder.total_amount.getText().toString();
-        int size=mUserItems.size();
+        size=mUserItems.size();
         eachamount=Integer.parseInt(totalamount)/(size+1);
         mHolder.each_amount.setText(String.valueOf(eachamount));
   //      Toast.makeText(getContext(), ""+String.valueOf(eachamount), Toast.LENGTH_SHORT).show();
@@ -356,15 +363,36 @@ public class AddEnteryFragment extends Fragment implements View.OnClickListener{
 
 
     public void Today_Entery()
+
     {
+        Remarks=mHolder.remarks.getText().toString().trim();
+        TotalAmount=mHolder.total_amount.getText().toString().trim();
+        if(TextUtils.isEmpty(TotalAmount))
+        {
+            AppUtils.showSnackBar(getView(),"Enter Total Amount");
+        }
+        else if(TextUtils.isEmpty(Remarks))
 
-        AddEntery addEntery=new AddEntery(spinner_item,mHolder.total_amount.getText().toString(),
-                String.valueOf(eachamount),mHolder.remarks.getText().toString(),
-                selected_person,current_date_time);
-        databaseReference.child(Current_month).child(current_date_time).setValue(addEntery);
-        sendNotification();
-        getActivity().finish();
+        {
+            AppUtils.showSnackBar(getView(),"Enter Remarks");
+        }
 
+          else if(size==0)
+        {
+            AppUtils.showSnackBar(getView(),"Select Dining Person");
+        }
+
+        else {
+
+            AddEntery addEntery = new AddEntery(spinner_item, mHolder.total_amount.getText().toString(),
+                    String.valueOf(eachamount), mHolder.remarks.getText().toString(),
+                    selected_person, current_date_time);
+            databaseReference.child(Current_month).child(current_date_time).setValue(addEntery);
+            OneSignal.sendTag("User", LoginUtils.getUserEmail(getContext()));
+
+            sendNotification();
+            getActivity().finish();
+        }
     }
     public void sendNotification()
     {
@@ -376,8 +404,13 @@ public class AddEnteryFragment extends Fragment implements View.OnClickListener{
         request.contents.en="New Entery Added\n";
         request.data = new Data();
         request.data.data="data";
-        request.included_segments=new ArrayList<>();
-        request.included_segments.add("All");
+        Filter filter=new Filter();
+        filter.field="tag";
+        filter.key=LoginUtils.getUserEmail(getContext());
+        filter.relation="=";
+        filter.value="1";
+        request.filters=new ArrayList<>();
+        request.filters.add(filter);
         Call<Object> call = apiService.postPackets(request);
         call.enqueue(new Callback<Object>() {
             @Override

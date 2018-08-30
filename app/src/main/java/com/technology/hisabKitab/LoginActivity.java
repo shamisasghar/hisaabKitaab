@@ -10,6 +10,7 @@ import android.widget.EditText;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.onesignal.OneSignal;
 import com.technology.hisabKitab.utils.LoginUtils;
 
 public class LoginActivity  extends AppCompatActivity {
@@ -31,6 +32,9 @@ public class LoginActivity  extends AppCompatActivity {
         if (LoginUtils.isUserLogin(getApplicationContext())) {
             Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
             startActivity(intent);
+        //    LoginUtils.saveUserEmail(getApplicationContext(),edit_email.getText().toString());
+//            OneSignal.sendTag("User",LoginUtils.getUserEmail(getApplicationContext()));
+
             finish();
         } else {
          //   Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show();

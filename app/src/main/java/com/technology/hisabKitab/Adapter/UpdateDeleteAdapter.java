@@ -1,5 +1,6 @@
 package com.technology.hisabKitab.Adapter;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -107,10 +108,9 @@ public class UpdateDeleteAdapter extends RecyclerView.Adapter<UpdateDeleteAdapte
 
                 deleteArtist(id);
                 b.dismiss();
+                ((Activity)c).finish();
             }
         });
-
-
 
     }
 
