@@ -33,7 +33,7 @@ public class LoginActivity  extends AppCompatActivity {
             Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
             startActivity(intent);
         //    LoginUtils.saveUserEmail(getApplicationContext(),edit_email.getText().toString());
-//            OneSignal.sendTag("User",LoginUtils.getUserEmail(getApplicationContext()));
+
 
             finish();
         } else {
@@ -51,6 +51,7 @@ public class LoginActivity  extends AppCompatActivity {
     public void submit()
     {
         LoginUtils.saveUserEmail(LoginActivity.this,edit_email.getText().toString());
+        OneSignal.sendTag(LoginUtils.getUserEmail(getApplicationContext()),"1");
         LoginUtils.userLoggedIn(LoginActivity.this);
         databaseReference = FirebaseDatabase.getInstance().getReference().child(edit_email.getText().toString());
        // databaseReference.child("shamis").setValue(edit_email.getText().toString());

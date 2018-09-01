@@ -176,7 +176,7 @@ String Remarks,TotalAmount;
                 Calendar calendar = Calendar.getInstance();
                 calendar = Calendar.getInstance();
                 String month = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault());
-                String data = year + "-" + month + "-" + dayOfMonth;
+                String data = year + "-" +month+ "-" + dayOfMonth;
                 current_date_time=data;
                 date_time.setText(current_date_time);
                // current_date_time=data;
@@ -198,6 +198,7 @@ String Remarks,TotalAmount;
         calendar= Calendar.getInstance();
         df = new SimpleDateFormat("yyyy-MMMM-dd");
         Current_month= AppUtils.getFormattedDate(df.format(calendar.getTime()));
+        Toast.makeText(getContext(), ""+Current_month, Toast.LENGTH_SHORT).show();
 
 
     }
@@ -209,7 +210,7 @@ String Remarks,TotalAmount;
         db.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
+                checkedItems=new boolean[users.size()];
                 progressBar.setVisibility(View.GONE);
 
                areas  = new ArrayList<>();
@@ -289,9 +290,28 @@ String Remarks,TotalAmount;
 
         }
         else {
+
+            Toast.makeText(getContext(), spinner_item, Toast.LENGTH_SHORT).show();
+            for (int i=0;i<users.size();i++)
+            {
+                if(spinner_item.equals(users.get(i).getFname()))
+                {
+                    Toast.makeText(getContext(), "mathces", Toast.LENGTH_SHORT).show();
+                    checkedItems[i]=false;
+                }
+                else
+                {
+                    checkedItems[i]=true;
+                    mUserItems.add(i);
+                }
+
+
+            }
+
+
 //        checkedItems = new boolean[listItems.size()];
             AlertDialog.Builder mBuilder = new AlertDialog.Builder(getContext());
-            mBuilder.setTitle("Select Dining Person's except Payed Person");
+            mBuilder.setTitle("UnSelect Dining Person's");
             mBuilder.setMultiChoiceItems(aary, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int position, boolean isChecked) {
@@ -401,7 +421,7 @@ String Remarks,TotalAmount;
         Notification request = new Notification();
         request.app_id="720b0741-307c-4d08-9be0-3445acbc95dd";
         request.contents=new Contents();
-        request.contents.en="New Entery Added\n";
+        request.contents.en="Entery of "+mHolder.remarks.getText().toString()+" has been Added";
         request.data = new Data();
         request.data.data="data";
         Filter filter=new Filter();

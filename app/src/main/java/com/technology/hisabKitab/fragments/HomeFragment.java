@@ -6,13 +6,20 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.onesignal.OneSignal;
 import com.technology.hisabKitab.FrameActivity;
 import com.technology.hisabKitab.R;
+import com.technology.hisabKitab.SimpleFrameActivity;
+import com.technology.hisabKitab.SplashActivity;
 import com.technology.hisabKitab.toolbox.ToolbarListener;
 import com.technology.hisabKitab.utils.ActivityUtils;
+import com.technology.hisabKitab.utils.LoginUtils;
 
 /**
  * Created by Bilal Rashid on 10/10/2017.
@@ -50,6 +57,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 //        toolbar.setOnClickListener(this);
     }
 
+
     @Override
     public void onClick(View view) {
 
@@ -65,7 +73,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                 ActivityUtils.startActivity(getActivity(), FrameActivity.class,AddEnteryFragment.class.getName(),null);
                 break;
             case R.id.cardview_histroy:
-                ActivityUtils.startActivity(getActivity(), FrameActivity.class,HistoryDetailFragment.class.getName(),null);
+                ActivityUtils.startActivity(getActivity(), SimpleFrameActivity.class,HistoryDetailFragment.class.getName(),null);
                 break;
 
             case R.id.cardview_cash:

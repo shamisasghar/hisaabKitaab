@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.onesignal.OneSignal;
 import com.technology.hisabKitab.dialog.SimpleDialog;
 import com.technology.hisabKitab.enumerations.AnimationEnum;
 import com.technology.hisabKitab.fragments.HomeFragment;
@@ -101,6 +102,7 @@ public class HomeActivity extends AppCompatActivity implements ToolbarListener {
     protected void onDestroy() {
         super.onDestroy();
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -114,6 +116,7 @@ public class HomeActivity extends AppCompatActivity implements ToolbarListener {
                 onBackPressed();
                 return true;
             case R.id.action_logout:
+                OneSignal.sendTag(LoginUtils.getUserEmail(getApplicationContext()),"null");
                 LoginUtils.clearUser(getApplicationContext());
                 startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                 finish();

@@ -72,32 +72,32 @@ public class CashInfoFragment extends Fragment implements View.OnClickListener {
     }
 
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        MenuItem view;
-
-        inflater.inflate(R.menu.menu_search, menu);
-        view = menu.findItem(R.id.action_search);
-        SearchView mSearchView = (SearchView) view.getActionView();
-//        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//            @Override
-//            public boolean onQueryTextSubmit(String query) {
-//                mAdapter.getFilter().filter(query);
-//                Toast.makeText(getContext(), "submit", Toast.LENGTH_SHORT).show();
-//                return true;
-//            }
+//    @Override
+//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+//        MenuItem view;
 //
-//            @Override
-//            public boolean onQueryTextChange(String newText) {
-//                mAdapter.getFilter().filter(newText);
-//                Toast.makeText(getContext(), "changed", Toast.LENGTH_SHORT).show();
-//                return true;
-//            }
-//        });
-
-
-    }
-
+//        inflater.inflate(R.menu.menu_search, menu);
+//        view = menu.findItem(R.id.action_search);
+//        SearchView mSearchView = (SearchView) view.getActionView();
+////        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+////            @Override
+////            public boolean onQueryTextSubmit(String query) {
+////                mAdapter.getFilter().filter(query);
+////                Toast.makeText(getContext(), "submit", Toast.LENGTH_SHORT).show();
+////                return true;
+////            }
+////
+////            @Override
+////            public boolean onQueryTextChange(String newText) {
+////                mAdapter.getFilter().filter(newText);
+////                Toast.makeText(getContext(), "changed", Toast.LENGTH_SHORT).show();
+////                return true;
+////            }
+////        });
+//
+//
+//    }
+//
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 

@@ -46,13 +46,13 @@ public class HistoryDetailFragment extends Fragment implements View.OnClickListe
 
     ListView mListView;
     TextView mEmptyView;
-    DatabaseReference db, userdb,delete_item;
+    DatabaseReference db, userdb, delete_item;
     DatabaseReference databaseReference;
     FireBaseHelper helper_user;
     Firebase helper;
     HistoryAdapter adapter;
     Calendar calendar;
-    String Current_month, current_date_time, each_amount,payed_person,remarks,totalamount;
+    String Current_month, current_date_time, each_amount, payed_person, remarks, totalamount;
     boolean isMultiSelect = false;
     ArrayList<AddEntery> multiselect_list = new ArrayList<>();
     ArrayList<AddEntery> user_list = new ArrayList<>();
@@ -67,6 +67,9 @@ public class HistoryDetailFragment extends Fragment implements View.OnClickListe
     ArrayList<Integer> mUserItems = new ArrayList<>();
     List<String> areas;
     private ArrayList<User> users;
+    int Postion;
+
+
 
 
     @Override
@@ -83,33 +86,6 @@ public class HistoryDetailFragment extends Fragment implements View.OnClickListe
             ((ToolbarListener) context).setTitle("History");
         }
     }
-
-
-//    @Override
-//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-//        MenuItem view;
-//
-//        inflater.inflate(R.menu.menu_main, menu);
-//        view = menu.findItem(R.id.action_dummy);
-//      //  SearchView mSearchView = (SearchView) view.getActionView();
-////        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-////            @Override
-////            public boolean onQueryTextSubmit(String query) {
-////                mAdapter.getFilter().filter(query);
-////                Toast.makeText(getContext(), "submit", Toast.LENGTH_SHORT).show();
-////                return true;
-////            }
-////
-////            @Override
-////            public boolean onQueryTextChange(String newText) {
-////                mAdapter.getFilter().filter(newText);
-////                Toast.makeText(getContext(), "changed", Toast.LENGTH_SHORT).show();
-////                return true;
-////            }
-////        });
-//
-//
-//    }
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -144,11 +120,16 @@ public class HistoryDetailFragment extends Fragment implements View.OnClickListe
             public void onItemClick(View view, int position) {
                 if (isMultiSelect)
                     multi_select(position);
+                Toast.makeText(getContext(), ""+user_list.get(position).getSelected_person(), Toast.LENGTH_SHORT).show();
+
+
 
             }
 
             @Override
             public void onItemLongClick(View view, int position) {
+                Toast.makeText(getContext(), ""+user_list.get(position).getSelected_person(), Toast.LENGTH_SHORT).show();
+                Postion=position;
                 if (!isMultiSelect) {
                     multiselect_list = new ArrayList<AddEntery>();
                     isMultiSelect = true;
@@ -242,14 +223,7 @@ public class HistoryDetailFragment extends Fragment implements View.OnClickListe
                                             user_list.remove(multiselect_list.get(i));
                                             current_date_time = multiselect_list.get(i).getDate();
                                             DeleteItem(current_date_time);
-
-
                                             adapter.notifyDataSetChanged();
-
-
-
-
-
                                         }
 
 
@@ -297,10 +271,25 @@ public class HistoryDetailFragment extends Fragment implements View.OnClickListe
     public void ShowDialog() {
 //        checkedItems = new boolean[listItems.size()];
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(getContext());
-        mBuilder.setTitle("select person's not payed yet!");
+        mBuilder.setTitle("Unselect payed person's");
+        String currentString=user_list.get(Postion).getSelected_person();
+        String[] separated = currentString.split(",");
+//        int position=areas.indexOf(separated[0]);
+        mUserItems.clear();
+        for (int i=0; i<separated.length;i++){
+            int position=areas.indexOf(separated[i]);
+
+            if(position!=-1){
+                checkedItems[position]=true;
+                mUserItems.add(position);
+            }
+        }
+     //   Toast.makeText(getContext(), "current item"+position, Toast.LENGTH_SHORT).show();
         mBuilder.setMultiChoiceItems(aary, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
             @Override
-            public void onClick(DialogInterface dialogInterface, int position, boolean isChecked) {
+            public void onClick(DialogInterface dialogInterface, int position,boolean isChecked) {
+
+
 //                        if (isChecked) {
 //                            if (!mUserItems.contains(position)) {
 //                                mUserItems.add(position);
@@ -309,9 +298,13 @@ public class HistoryDetailFragment extends Fragment implements View.OnClickListe
 //                            mUserItems.remove(position);
 //                        }
                 if (isChecked) {
+                    Toast.makeText(getContext(), ""+isChecked+position, Toast.LENGTH_SHORT).show();
                     mUserItems.add(position);
+
                 } else {
                     mUserItems.remove((Integer.valueOf(position)));
+                    Toast.makeText(getContext(), ""+isChecked+position, Toast.LENGTH_SHORT).show();
+
                 }
             }
         });
@@ -327,13 +320,14 @@ public class HistoryDetailFragment extends Fragment implements View.OnClickListe
                         selected_person = selected_person + ",";
                     }
                 }
+                Toast.makeText(getContext(), selected_person, Toast.LENGTH_SHORT).show();
 
                 for (int i = 0; i < multiselect_list.size(); i++) {
                     current_date_time = multiselect_list.get(i).getDate();
                     each_amount = multiselect_list.get(i).getEach_amount();
-                    remarks=multiselect_list.get(i).getRemarks();
-                    payed_person=multiselect_list.get(i).getPayed_person_name();
-                    totalamount=multiselect_list.get(i).getTotal_amount();
+                    remarks = multiselect_list.get(i).getRemarks();
+                    payed_person = multiselect_list.get(i).getPayed_person_name();
+                    totalamount = multiselect_list.get(i).getTotal_amount();
 
                     AddEntery addEntery = new AddEntery(payed_person,
                             totalamount,
@@ -381,6 +375,8 @@ public class HistoryDetailFragment extends Fragment implements View.OnClickListe
         userdb.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                checkedItems=new boolean[users.size()];
+
                 areas = new ArrayList<>();
                 for (int i = 0; i < users.size(); i++) {
                     areas.add(String.valueOf(users.get(i).getFname()));
@@ -405,11 +401,9 @@ public class HistoryDetailFragment extends Fragment implements View.OnClickListe
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MMMM-dd");
         Current_month = AppUtils.getFormattedDate(df.format(calendar.getTime()));
 
-
     }
 
-    public void DeleteItem(String value)
-    {
+    public void DeleteItem(String value) {
         delete_item = FirebaseDatabase.getInstance().getReference().child(LoginUtils.getUserEmail(getContext())).child("Months").child(Current_month).child(value);
         delete_item.removeValue();
 
