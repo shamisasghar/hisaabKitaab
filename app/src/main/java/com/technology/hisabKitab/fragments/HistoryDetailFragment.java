@@ -94,6 +94,7 @@ public class HistoryDetailFragment extends Fragment implements View.OnClickListe
         View view = inflater.inflate(R.layout.fragment_history_detail, container, false);
 //        mListView = (ListView) view.findViewById(R.id.list);
 //        mEmptyView = (TextView) view.findViewById(R.id.txt_empty);
+        manipulateBundle(getArguments());
         users = new ArrayList<>();
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         layoutManager = new LinearLayoutManager(getContext());
@@ -110,7 +111,6 @@ public class HistoryDetailFragment extends Fragment implements View.OnClickListe
         Getdatetime();
 
 
-        db = FirebaseDatabase.getInstance().getReference().child(LoginUtils.getUserEmail(getContext())).child("Months").child(Current_month);
         helper = new Firebase(db);
         adapter = new HistoryAdapter(getContext(), helper.retrieve(), multiselect_list);
         recyclerView.setAdapter(adapter);
@@ -120,7 +120,7 @@ public class HistoryDetailFragment extends Fragment implements View.OnClickListe
             public void onItemClick(View view, int position) {
                 if (isMultiSelect)
                     multi_select(position);
-                Toast.makeText(getContext(), ""+user_list.get(position).getSelected_person(), Toast.LENGTH_SHORT).show();
+          //      Toast.makeText(getContext(), ""+user_list.get(position).getSelected_person(), Toast.LENGTH_SHORT).show();
 
 
 
@@ -128,7 +128,7 @@ public class HistoryDetailFragment extends Fragment implements View.OnClickListe
 
             @Override
             public void onItemLongClick(View view, int position) {
-                Toast.makeText(getContext(), ""+user_list.get(position).getSelected_person(), Toast.LENGTH_SHORT).show();
+         //       Toast.makeText(getContext(), ""+user_list.get(position).getSelected_person(), Toast.LENGTH_SHORT).show();
                 Postion=position;
                 if (!isMultiSelect) {
                     multiselect_list = new ArrayList<AddEntery>();
@@ -146,6 +146,20 @@ public class HistoryDetailFragment extends Fragment implements View.OnClickListe
 
 
         return view;
+    }
+
+    private void manipulateBundle(Bundle bundle) {
+        if (bundle != null) {
+
+            String datetime =bundle.getString("MonthFormat");
+            db = FirebaseDatabase.getInstance().getReference().child(LoginUtils.getUserEmail(getContext())).child("Months").child(datetime);
+
+            Toast.makeText(getContext(), datetime, Toast.LENGTH_SHORT).show();
+        }
+        else{
+            db = FirebaseDatabase.getInstance().getReference().child(LoginUtils.getUserEmail(getContext())).child("Months").child(Current_month);
+
+        }
     }
 
 
@@ -298,12 +312,12 @@ public class HistoryDetailFragment extends Fragment implements View.OnClickListe
 //                            mUserItems.remove(position);
 //                        }
                 if (isChecked) {
-                    Toast.makeText(getContext(), ""+isChecked+position, Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(getContext(), ""+isChecked+position, Toast.LENGTH_SHORT).show();
                     mUserItems.add(position);
 
                 } else {
                     mUserItems.remove((Integer.valueOf(position)));
-                    Toast.makeText(getContext(), ""+isChecked+position, Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getContext(), ""+isChecked+position, Toast.LENGTH_SHORT).show();
 
                 }
             }
@@ -392,7 +406,6 @@ public class HistoryDetailFragment extends Fragment implements View.OnClickListe
 
             }
         });
-
 
     }
 

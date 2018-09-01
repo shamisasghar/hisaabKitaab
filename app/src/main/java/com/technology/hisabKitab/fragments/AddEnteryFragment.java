@@ -60,7 +60,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AddEnteryFragment extends Fragment implements View.OnClickListener{
+public class AddEnteryFragment extends Fragment implements View.OnClickListener {
     DatabaseReference db;
     Spinner spinner;
     View view;
@@ -76,7 +76,7 @@ public class AddEnteryFragment extends Fragment implements View.OnClickListener{
     ArrayList<Integer> mUserItems = new ArrayList<>();
     String[] aary;
     String selected_person = "";
-    String Current_month,totalamount;
+    String Current_month, totalamount;
     Calendar calendar;
     int eachamount;
     ImageView img_edit;
@@ -84,8 +84,9 @@ public class AddEnteryFragment extends Fragment implements View.OnClickListener{
     SimpleDateFormat simpleDateFormat;
     private DatePickerDialog.OnDateSetListener onDateSetListener;
     ProgressBar progressBar;
-String Remarks,TotalAmount;
+    String Remarks, TotalAmount;
     int size;
+    String data,monthformat;
 
     @Override
     public void onClick(View view) {
@@ -135,7 +136,7 @@ String Remarks,TotalAmount;
 
         view = inflater.inflate(R.layout.fragment_add_entery, container, false);
         spinner = (Spinner) view.findViewById(R.id.Spinner);
-        progressBar=(ProgressBar)view.findViewById(R.id.progress_bar);
+        progressBar = (ProgressBar) view.findViewById(R.id.progress_bar);
         img_edit = (ImageView) view.findViewById(R.id.image_edit);
         users = new ArrayList<>();
         date_time = (TextView) view.findViewById(R.id.txt_date_time);
@@ -144,7 +145,7 @@ String Remarks,TotalAmount;
         helper = new FireBaseHelper(db);
         users = helper.retrieve();
         progressBar.setVisibility(View.VISIBLE);
-        Toast.makeText(getContext(), ""+LoginUtils.getUserEmail(getContext()), Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "" + LoginUtils.getUserEmail(getContext()), Toast.LENGTH_SHORT).show();
 
 
 //        checkedItems = new boolean[listItems.length];
@@ -162,30 +163,53 @@ String Remarks,TotalAmount;
 
             @Override
             public void onClick(View view) {
-               // Toast.makeText(getActivity(), "cleick", Toast.LENGTH_SHORT).show();
-                DatePickerDialog datePickerDialog=new DatePickerDialog(getContext(),R.style.DatePickerSpinner,onDateSetListener,year,month,day);
+                // Toast.makeText(getActivity(), "cleick", Toast.LENGTH_SHORT).show();
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), R.style.DatePickerSpinner, onDateSetListener, year, month, day);
                 datePickerDialog.getWindow();
                 datePickerDialog.show();
 
-            //    showDate(year, month, day, R.style.DatePickerSpinner);
+                //    showDate(year, month, day, R.style.DatePickerSpinner);
 
             }
         });
-        onDateSetListener=new DatePickerDialog.OnDateSetListener() {
+        onDateSetListener = new DatePickerDialog.OnDateSetListener() {
             public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
-                Calendar calendar = Calendar.getInstance();
-                calendar = Calendar.getInstance();
+                Calendar calendar= Calendar.getInstance();
                 String month = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault());
-                String data = year + "-" +month+ "-" + dayOfMonth;
+                 data= year + "-" + getMonthShortName(monthOfYear) + "-" + dayOfMonth;
+                 monthformat=getMonthShortName(monthOfYear)+", "+year;
+                Toast.makeText(getContext(), monthformat, Toast.LENGTH_SHORT).show();
                 current_date_time=data;
                 date_time.setText(current_date_time);
-               // current_date_time=data;
+
+
+                // current_date_time=data;
             }
         };
 
 
-
         return view;
+    }
+    public static String getMonthShortName(int monthNumber)
+    {
+        String monthName="";
+
+        if(monthNumber>=0 && monthNumber<12)
+            try
+            {
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(Calendar.MONTH, monthNumber);
+
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMMM");
+                simpleDateFormat.setCalendar(calendar);
+                monthName = simpleDateFormat.format(calendar.getTime());
+            }
+            catch (Exception e)
+            {
+                if(e!=null)
+                    e.printStackTrace();
+            }
+        return monthName;
     }
 
 
@@ -194,11 +218,9 @@ String Remarks,TotalAmount;
         outputFmt.setTimeZone(TimeZone.getTimeZone("gmt"));
         current_date_time = outputFmt.format(new Date());
         date_time.setText(current_date_time);
-
-        calendar= Calendar.getInstance();
+        calendar = Calendar.getInstance();
         df = new SimpleDateFormat("yyyy-MMMM-dd");
-        Current_month= AppUtils.getFormattedDate(df.format(calendar.getTime()));
-        Toast.makeText(getContext(), ""+Current_month, Toast.LENGTH_SHORT).show();
+        Current_month = AppUtils.getFormattedDate(df.format(calendar.getTime()));
 
 
     }
@@ -210,10 +232,10 @@ String Remarks,TotalAmount;
         db.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                checkedItems=new boolean[users.size()];
+                checkedItems = new boolean[users.size()];
                 progressBar.setVisibility(View.GONE);
 
-               areas  = new ArrayList<>();
+                areas = new ArrayList<>();
 
                 try {
 
@@ -223,15 +245,14 @@ String Remarks,TotalAmount;
 //                            areas.add("Select Payed Person");
 //                        }
 //                        else {
-                            areas.add(String.valueOf(users.get(i).getFname()));
+                        areas.add(String.valueOf(users.get(i).getFname()));
 
-                            aary = areas.toArray(new String[i]);
-                   //     }
-                      //
+                        aary = areas.toArray(new String[i]);
+                        //     }
+                        //
                         //  Toast.makeText(getContext(), ""+listItems, Toast.LENGTH_SHORT).show();
                     }
-                    if(areas!=null)
-                    {
+                    if (areas != null) {
                         progressBar.setVisibility(View.GONE);
                     }
 
@@ -240,8 +261,8 @@ String Remarks,TotalAmount;
                     spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-                            spinner_item=areasAdapter.getItem(position);
-                         //   Toast.makeText(getContext(), ""+spinner_item, Toast.LENGTH_SHORT).show();
+                            spinner_item = areasAdapter.getItem(position);
+                            //   Toast.makeText(getContext(), ""+spinner_item, Toast.LENGTH_SHORT).show();
                         }
 
                         @Override
@@ -269,7 +290,7 @@ String Remarks,TotalAmount;
     public static class ViewHolder {
 
         Button button_add_person, button_add_entery;
-        EditText total_amount,each_amount,remarks;
+        EditText total_amount, each_amount, remarks;
 
 
         public ViewHolder(View view) {
@@ -282,26 +303,20 @@ String Remarks,TotalAmount;
         }
 
     }
-    public void ShowDialog()
-    {
-        if(mHolder.total_amount.getText().toString().equals(""))
-        {
-            AppUtils.showSnackBar(getView(),"Add Total Amount First");
 
-        }
-        else {
+    public void ShowDialog() {
+        if (mHolder.total_amount.getText().toString().equals("")) {
+            AppUtils.showSnackBar(getView(), "Add Total Amount First");
+
+        } else {
 
             Toast.makeText(getContext(), spinner_item, Toast.LENGTH_SHORT).show();
-            for (int i=0;i<users.size();i++)
-            {
-                if(spinner_item.equals(users.get(i).getFname()))
-                {
+            for (int i = 0; i < users.size(); i++) {
+                if (spinner_item.equals(users.get(i).getFname())) {
                     Toast.makeText(getContext(), "mathces", Toast.LENGTH_SHORT).show();
-                    checkedItems[i]=false;
-                }
-                else
-                {
-                    checkedItems[i]=true;
+                    checkedItems[i] = false;
+                } else {
+                    checkedItems[i] = true;
                     mUserItems.add(i);
                 }
 
@@ -370,66 +385,69 @@ String Remarks,TotalAmount;
         }
 
     }
-    public void GetEachAmount()
-    {
-        totalamount=mHolder.total_amount.getText().toString();
-        size=mUserItems.size();
-        eachamount=Integer.parseInt(totalamount)/(size+1);
+
+    public void GetEachAmount() {
+        totalamount = mHolder.total_amount.getText().toString();
+        size = mUserItems.size();
+        eachamount = Integer.parseInt(totalamount) / (size + 1);
         mHolder.each_amount.setText(String.valueOf(eachamount));
-  //      Toast.makeText(getContext(), ""+String.valueOf(eachamount), Toast.LENGTH_SHORT).show();
+        //      Toast.makeText(getContext(), ""+String.valueOf(eachamount), Toast.LENGTH_SHORT).show();
 
     }
-
 
 
     public void Today_Entery()
 
     {
-        Remarks=mHolder.remarks.getText().toString().trim();
-        TotalAmount=mHolder.total_amount.getText().toString().trim();
-        if(TextUtils.isEmpty(TotalAmount))
-        {
-            AppUtils.showSnackBar(getView(),"Enter Total Amount");
-        }
-        else if(TextUtils.isEmpty(Remarks))
+        Remarks = mHolder.remarks.getText().toString().trim();
+        TotalAmount = mHolder.total_amount.getText().toString().trim();
+        if (TextUtils.isEmpty(TotalAmount)) {
+            AppUtils.showSnackBar(getView(), "Enter Total Amount");
+        } else if (TextUtils.isEmpty(Remarks))
 
         {
-            AppUtils.showSnackBar(getView(),"Enter Remarks");
-        }
+            AppUtils.showSnackBar(getView(), "Enter Remarks");
+        } else if (size == 0) {
+            AppUtils.showSnackBar(getView(), "Select Dining Person");
+        } else {
 
-          else if(size==0)
-        {
-            AppUtils.showSnackBar(getView(),"Select Dining Person");
-        }
+            if(monthformat!=null)
+            {
+                AddEntery addEntery = new AddEntery(spinner_item, mHolder.total_amount.getText().toString(),
+                        String.valueOf(eachamount), mHolder.remarks.getText().toString(),
+                        selected_person, current_date_time);
+                databaseReference.setValue(addEntery);
 
-        else {
+            }
+            else {
 
-            AddEntery addEntery = new AddEntery(spinner_item, mHolder.total_amount.getText().toString(),
-                    String.valueOf(eachamount), mHolder.remarks.getText().toString(),
-                    selected_person, current_date_time);
-            databaseReference.child(Current_month).child(current_date_time).setValue(addEntery);
-            OneSignal.sendTag("User", LoginUtils.getUserEmail(getContext()));
+                AddEntery addEntery = new AddEntery(spinner_item, mHolder.total_amount.getText().toString(),
+                        String.valueOf(eachamount), mHolder.remarks.getText().toString(),
+                        selected_person, current_date_time);
+                databaseReference.child(Current_month).child(current_date_time).setValue(addEntery);
+//            OneSignal.sendTag("User", LoginUtils.getUserEmail(getContext()));
+            }
 
-            sendNotification();
+           // sendNotification();
             getActivity().finish();
         }
     }
-    public void sendNotification()
-    {
+
+    public void sendNotification() {
         ApiInterface apiService =
                 ApiClient.getClient().create(ApiInterface.class);
         Notification request = new Notification();
-        request.app_id="720b0741-307c-4d08-9be0-3445acbc95dd";
-        request.contents=new Contents();
-        request.contents.en="Entery of "+mHolder.remarks.getText().toString()+" has been Added";
+        request.app_id = "720b0741-307c-4d08-9be0-3445acbc95dd";
+        request.contents = new Contents();
+        request.contents.en = "Entery of " + mHolder.remarks.getText().toString() + " has been Added";
         request.data = new Data();
-        request.data.data="data";
-        Filter filter=new Filter();
-        filter.field="tag";
-        filter.key=LoginUtils.getUserEmail(getContext());
-        filter.relation="=";
-        filter.value="1";
-        request.filters=new ArrayList<>();
+        request.data.data = "data";
+        Filter filter = new Filter();
+        filter.field = "tag";
+        filter.key = LoginUtils.getUserEmail(getContext());
+        filter.relation = "=";
+        filter.value = "1";
+        request.filters = new ArrayList<>();
         request.filters.add(filter);
         Call<Object> call = apiService.postPackets(request);
         call.enqueue(new Callback<Object>() {
@@ -446,7 +464,6 @@ String Remarks,TotalAmount;
             }
         });
     }
-
 
 
 }

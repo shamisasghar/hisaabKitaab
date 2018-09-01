@@ -1,5 +1,6 @@
 package com.technology.hisabKitab;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,8 @@ import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.DatePicker;
+import android.widget.Toast;
 
 import com.onesignal.OneSignal;
 import com.technology.hisabKitab.dialog.SimpleDialog;
@@ -20,6 +23,9 @@ import com.technology.hisabKitab.utils.ActivityUtils;
 import com.technology.hisabKitab.utils.Constants;
 import com.technology.hisabKitab.utils.LoginUtils;
 
+import java.util.Calendar;
+import java.util.Locale;
+
 /**
  * Created by Bilal Rashid on 10/10/2017.
  */
@@ -27,6 +33,7 @@ import com.technology.hisabKitab.utils.LoginUtils;
 public class HomeActivity extends AppCompatActivity implements ToolbarListener {
     private Toolbar mToolbar;
     private SimpleDialog mSimpleDialog;
+    private DatePickerDialog.OnDateSetListener onDateSetListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,6 +127,27 @@ public class HomeActivity extends AppCompatActivity implements ToolbarListener {
                 LoginUtils.clearUser(getApplicationContext());
                 startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                 finish();
+                break;
+            case R.id.action_calender:
+            Calendar c = Calendar.getInstance();
+            // From calander get the year, month, day, hour, minute
+            int year = c.get(Calendar.YEAR);
+            int month = c.get(Calendar.MONTH);
+            int day = c.get(Calendar.DAY_OF_MONTH);
+            DatePickerDialog datePickerDialog=new DatePickerDialog(this,R.style.DatePickerSpinner,onDateSetListener,year,month,day);
+            datePickerDialog.getWindow();
+            datePickerDialog.show();
+            onDateSetListener=new DatePickerDialog.OnDateSetListener() {
+                public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
+                    Calendar calendar = Calendar.getInstance();
+                    calendar = Calendar.getInstance();
+                    String month = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault());
+                    String data = month+", "+year;
+
+                    Toast.makeText(HomeActivity.this, ""+data, Toast.LENGTH_SHORT).show();
+                    // current_date_time=data;
+                }
+            };
                 break;
             default:
                 // ...

@@ -63,7 +63,7 @@ public class AddPersonFragment extends Fragment implements View.OnClickListener 
 
         view= inflater.inflate(R.layout.fragment_add_person, container, false);
         floatingActionButton=(FloatingActionButton)view.findViewById(R.id.fab_add);
-
+        manipulateBundle(getArguments());
 
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,6 +77,15 @@ public class AddPersonFragment extends Fragment implements View.OnClickListener 
 
         return view;
     }
+
+    private void manipulateBundle(Bundle bundle) {
+        if (bundle != null) {
+
+            String datetime =bundle.getString("MonthFormat");
+            Toast.makeText(mContext, datetime, Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
 
     @Override
