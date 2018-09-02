@@ -3,8 +3,10 @@ package com.technology.hisabKitab.fragments;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -67,7 +69,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 //        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
 //        toolbar.setOnClickListener(this);
     }
-
+    AlertDialog levelDialog;
 
     @Override
     public void onClick(View view) {
@@ -105,10 +107,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                         calendar = Calendar.getInstance();
                         monthformat=getMonthShortName(monthOfYear)+", "+year;
                       //  Toast.makeText(getContext(),monthformat, Toast.LENGTH_SHORT).show();
-                        Bundle bundle=new Bundle();
-                        bundle.putString("MonthFormat",monthformat);
-                        ActivityUtils.startActivity(getActivity(), FrameActivity.class,HistoryDetailFragment.class.getName(),bundle);
+                        showRadioDilog();
 
+//                        Bundle bundle=new Bundle();
+//                        bundle.putString("MonthFormat",monthformat);
+//                        ActivityUtils.startActivity(getActivity(), FrameActivity.class,MonthlyCashInfoFragment.class.getName(),bundle);
 
                     }
                 };
@@ -119,6 +122,45 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
 
     }
+
+    private void showRadioDilog() {
+
+        final CharSequence[] items = {"Recovery","History"};
+
+        // Creating and Building the Dialog
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("Select Search by");
+        builder.setSingleChoiceItems(items, -1, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int item) {
+
+
+                switch(item)
+                {
+                    case 0:
+                        Bundle bundlee=new Bundle();
+                        bundlee.putString("MonthFormat",monthformat);
+                        ActivityUtils.startActivity(getActivity(), FrameActivity.class,MonthlyCashInfoFragment.class.getName(),bundlee);
+
+                        // Your code when first option seletced
+                        break;
+                    case 1:
+                        // Your code when 2nd  option seletced
+                        Bundle bundle=new Bundle();
+                        bundle.putString("MonthFormat",monthformat);
+                        ActivityUtils.startActivity(getActivity(), FrameActivity.class,MonthlyDetailFragment.class.getName(),bundle);
+
+                        break;
+
+                }
+                levelDialog.dismiss();
+            }
+        });
+        levelDialog = builder.create();
+        levelDialog.show();
+
+
+    }
+
 
     public static class ViewHolder {
         CardView cardView_add_person

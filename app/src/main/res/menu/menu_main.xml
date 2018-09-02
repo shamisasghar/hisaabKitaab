@@ -14,10 +14,5 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
         android:icon="@drawable/ic_logout"
         android:title="logout"
         app:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/action_calender"
-        android:icon="@drawable/ic_calender"
-        android:title="calender"
-        app:showAsAction="ifRoom" />
 
 </menu>

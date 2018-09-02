@@ -272,7 +272,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="130dp"
                     android:layout_marginStart="@dimen/spacing_small"
-                    app:cardBackgroundColor="@color/colorRadioButtonTextDisabled">
+                    app:cardBackgroundColor="@color/cpv_barColor">
 
                     <android.support.constraint.ConstraintLayout
                         android:layout_width="match_parent"
@@ -298,12 +298,24 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="@dimen/spacing_medium"
                             android:gravity="center"
-                            android:text="Recovery"
+                            android:text="@string/cardview_recovery_history"
                             android:textColor="#ffffff"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/image_detial" />
+                        <TextView
+                            android:id="@+id/txt_detaill"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/spacing_medium"
+                            android:gravity="center"
+                            android:text="History"
+                            android:textColor="#ffffff"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/txt_detail" />
 
                     </android.support.constraint.ConstraintLayout>
 

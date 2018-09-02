@@ -128,27 +128,6 @@ public class HomeActivity extends AppCompatActivity implements ToolbarListener {
                 startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                 finish();
                 break;
-            case R.id.action_calender:
-            Calendar c = Calendar.getInstance();
-            // From calander get the year, month, day, hour, minute
-            int year = c.get(Calendar.YEAR);
-            int month = c.get(Calendar.MONTH);
-            int day = c.get(Calendar.DAY_OF_MONTH);
-            DatePickerDialog datePickerDialog=new DatePickerDialog(this,R.style.DatePickerSpinner,onDateSetListener,year,month,day);
-            datePickerDialog.getWindow();
-            datePickerDialog.show();
-            onDateSetListener=new DatePickerDialog.OnDateSetListener() {
-                public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
-                    Calendar calendar = Calendar.getInstance();
-                    calendar = Calendar.getInstance();
-                    String month = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault());
-                    String data = month+", "+year;
-
-                    Toast.makeText(HomeActivity.this, ""+data, Toast.LENGTH_SHORT).show();
-                    // current_date_time=data;
-                }
-            };
-                break;
             default:
                 // ...
         }
