@@ -222,7 +222,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="130dp"
                     android:layout_marginEnd="@dimen/spacing_small"
-                    app:cardBackgroundColor="@color/colorRadioButtonTextDisabled">
+                    app:cardBackgroundColor="@color/colorLayout">
 
                     <android.support.constraint.ConstraintLayout
                         android:layout_width="match_parent"

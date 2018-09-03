@@ -94,6 +94,9 @@
     <color name="colorMessages">@color/colorMain</color> <!-- ok -->
     <color name="colorRewards">@color/colorPrimary</color><!-- ok -->
     <color name="colorOrders">#EECE65</color><!-- ok -->
+    <color name="colorLayout">#EC9940</color> <!-- ok Only used in styles.xml -->
+    <color name="colorLayoutdark">#c47f35</color> <!-- ok Only used in styles.xml -->
+
     <!-- Item Detail Screen -->
     <color name="colorItemScreenHeadingText">#002256</color>
     <color name="colorItemScreenTitleText">@color/colorMain</color>

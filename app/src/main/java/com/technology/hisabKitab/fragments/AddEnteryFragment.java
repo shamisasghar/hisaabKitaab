@@ -439,7 +439,7 @@ public class AddEnteryFragment extends Fragment implements View.OnClickListener 
         Notification request = new Notification();
         request.app_id = "720b0741-307c-4d08-9be0-3445acbc95dd";
         request.contents = new Contents();
-        request.contents.en = "Entery of " + mHolder.remarks.getText().toString() + " has been Added"+"\n"+current_date_time;
+        request.contents.en = "Entery of "+current_date_time+" has been Added"+"\n"+mHolder.remarks.getText().toString();
         request.data = new Data();
         request.data.data = "data";
         Filter filter = new Filter();
