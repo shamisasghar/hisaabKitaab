@@ -68,7 +68,7 @@ public class MonthlyDetailFragment  extends Fragment implements View.OnClickList
     int Postion;
 
     Bundle bundle;
-
+    String datetime;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -150,7 +150,7 @@ public class MonthlyDetailFragment  extends Fragment implements View.OnClickList
     private void manipulateBundle(Bundle bundle) {
         if (bundle != null) {
 
-            String datetime =bundle.getString("MonthFormat");
+            datetime =bundle.getString("MonthFormat");
             db = FirebaseDatabase.getInstance().getReference().child(LoginUtils.getUserEmail(getContext())).child("Months").child(datetime);
             helper = new Firebase(db);
             adapter = new HistoryAdapter(getContext(), helper.retrieve(), multiselect_list);
@@ -345,7 +345,7 @@ public class MonthlyDetailFragment  extends Fragment implements View.OnClickList
                             each_amount, remarks,
                             selected_person,
                             current_date_time);
-                    databaseReference.child(Current_month).child(current_date_time).setValue(addEntery);
+                    databaseReference.child(datetime).child(current_date_time).setValue(addEntery);
 
                     adapter.notifyDataSetChanged();
                 }
