@@ -416,7 +416,7 @@ public class AddEnteryFragment extends Fragment implements View.OnClickListener 
                 AddEntery addEntery = new AddEntery(spinner_item, mHolder.total_amount.getText().toString(),
                         String.valueOf(eachamount), mHolder.remarks.getText().toString(),
                         selected_person, current_date_time);
-                databaseReference.setValue(addEntery);
+                databaseReference.child(monthformat).child(current_date_time).setValue(addEntery);
 
             }
             else {
@@ -428,7 +428,7 @@ public class AddEnteryFragment extends Fragment implements View.OnClickListener 
 //            OneSignal.sendTag("User", LoginUtils.getUserEmail(getContext()));
             }
 
-            sendNotification();
+           // sendNotification();
             getActivity().finish();
         }
     }

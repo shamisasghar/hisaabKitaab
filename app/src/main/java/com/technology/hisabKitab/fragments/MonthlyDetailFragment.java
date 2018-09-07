@@ -95,9 +95,7 @@ public class MonthlyDetailFragment  extends Fragment implements View.OnClickList
         users = new ArrayList<>();
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         layoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
         databaseReference = FirebaseDatabase.getInstance().getReference().child(LoginUtils.getUserEmail(getContext())).child("Months");
 
         userdb = FirebaseDatabase.getInstance().getReference().child(LoginUtils.getUserEmail(getContext())).child("Person");
@@ -114,6 +112,9 @@ public class MonthlyDetailFragment  extends Fragment implements View.OnClickList
 //        adapter = new HistoryAdapter(getContext(), helper.retrieve(), multiselect_list);
 //        recyclerView.setAdapter(adapter);
         user_list = helper.retrieve();
+        adapter = new HistoryAdapter(getContext(), helper.retrieve(), multiselect_list);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(layoutManager);
         recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
@@ -153,8 +154,7 @@ public class MonthlyDetailFragment  extends Fragment implements View.OnClickList
             datetime =bundle.getString("MonthFormat");
             db = FirebaseDatabase.getInstance().getReference().child(LoginUtils.getUserEmail(getContext())).child("Months").child(datetime);
             helper = new Firebase(db);
-            adapter = new HistoryAdapter(getContext(), helper.retrieve(), multiselect_list);
-            recyclerView.setAdapter(adapter);
+
             Toast.makeText(getContext(), datetime, Toast.LENGTH_SHORT).show();
         }
     }
