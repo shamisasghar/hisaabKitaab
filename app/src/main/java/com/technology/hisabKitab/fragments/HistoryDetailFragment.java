@@ -122,9 +122,6 @@ Bundle bundle;
                 if (isMultiSelect)
                     multi_select(position);
           //      Toast.makeText(getContext(), ""+user_list.get(position).getSelected_person(), Toast.LENGTH_SHORT).show();
-
-
-
             }
 
             @Override
@@ -280,8 +277,9 @@ Bundle bundle;
             refreshAdapter();
         }
     };
-
+    int position;
     public void ShowDialog() {
+
 //        checkedItems = new boolean[listItems.size()];
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(getContext());
         mBuilder.setTitle("Unselect payed person's");
@@ -290,14 +288,14 @@ Bundle bundle;
 //        int position=areas.indexOf(separated[0]);
         mUserItems.clear();
         for (int i=0; i<separated.length;i++){
-            int position=areas.indexOf(separated[i]);
-
+            position=areas.indexOf(separated[i]);
+         //   Toast.makeText(getContext(), ""+position, Toast.LENGTH_SHORT).show();
             if(position!=-1){
                 checkedItems[position]=true;
                 mUserItems.add(position);
             }
         }
-     //   Toast.makeText(getContext(), "current item"+position, Toast.LENGTH_SHORT).show();
+
         mBuilder.setMultiChoiceItems(aary, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int position,boolean isChecked) {

@@ -313,7 +313,7 @@ public class AddEnteryFragment extends Fragment implements View.OnClickListener 
             Toast.makeText(getContext(), spinner_item, Toast.LENGTH_SHORT).show();
             for (int i = 0; i < users.size(); i++) {
                 if (spinner_item.equals(users.get(i).getFname())) {
-                    Toast.makeText(getContext(), "mathces", Toast.LENGTH_SHORT).show();
+                //    Toast.makeText(getContext(), "mathces", Toast.LENGTH_SHORT).show();
                     checkedItems[i] = false;
                 } else {
                     checkedItems[i] = true;
@@ -353,7 +353,7 @@ public class AddEnteryFragment extends Fragment implements View.OnClickListener 
                     for (int i = 0; i < mUserItems.size(); i++) {
                         selected_person = selected_person + aary[mUserItems.get(i)];
                         if (i != mUserItems.size() - 1) {
-                            selected_person = selected_person + ", ";
+                            selected_person = selected_person + ",";
                         }
                     }
                     Toast.makeText(getContext(), "" + selected_person, Toast.LENGTH_SHORT).show();
@@ -428,7 +428,8 @@ public class AddEnteryFragment extends Fragment implements View.OnClickListener 
 //            OneSignal.sendTag("User", LoginUtils.getUserEmail(getContext()));
             }
 
-           // sendNotification();
+
+            sendNotification();
             getActivity().finish();
         }
     }
